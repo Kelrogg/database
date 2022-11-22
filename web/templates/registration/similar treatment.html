@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <p>фильтры here</p>
+{% else %}
+    {% include "authentication_need.html" %}
+{% endif %}
+</body>
+</html>
