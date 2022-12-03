@@ -1,75 +1,95 @@
 @font-face {
-  font-family: "Maler";
-  src: url("/assets/fonts/Maler.ttf") format("truetype");
+  font-family: "Calibri";
+  src: url({% static "/assets/fonts/calibri.ttf" %}) format("truetype");
   font-style: normal;
   font-weight: normal;
 }
 
 .indexBackground {
-  background-image: url(/assets/img/indexBackGround.jpg);
-  background-size: 30%;
+  display:flex;
+  flex-direction: column;
+  background-image: url(/assets/img/mvd.png);
+  background-size: 20%;
+  background-color: #ececec;
   background-position: center center;
   background-repeat: no-repeat;
-  width: 100vw;
-  height: 100vh;
+  height: 56vh;
+}
+
+#bottom
+{
+  display: flex;
+  background-color: white;
+  margin-top: 10%;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#bottom h2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+#bottom p{
+  display:flex;
+  margin-top: 8%;
+  font-family: "Calibri";
+  color: #787878;
+  font-weight: 400;
+  font-size: 25px;
+  justify-content: center;
 }
 
 .indexBackground h1 {
-  font-family: 'Maler';
-  color: white;
+  display:flex;
+  font-family: "Calibri";
+  color: black;
   font-weight: 400;
-  font-size: 100px;
-  padding-top: 300px;
-  padding-left: 80px;
+  padding-top: 330px;
+  justify-content: center;
+  margin-top: 10%;
 }
 
 .indexBackground p {
-  font-family: 'Maler';
-  color: white;
+  display:flex;
+  margin-top: 3%;
+  font-family: "Calibri";
+  color: #787878;
   font-weight: 400;
   font-size: 25px;
-  margin-left: 80px;
-  width: 550px;
-  margin-top: 10px;
+  justify-content: center;
+}
+
+#button_container
+{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 2%;
+  gap: 8%;
 }
 
 .indexBackground .button-start {
-  border-radius: 44px;
-  background-color: #de3a3a;
-  width: 150px;
-  height: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  background-color: blue;
+  width: 190px;
+  height: 60px;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-left: 75px;
   cursor: pointer;
+  padding: 7px;
 }
 
 .indexBackground .button-start a {
-  font-family: 'Maler';
-  color: white;
+  font-family: "Calibri";
+  color: rgb(248, 246, 246);
   font-weight: 400;
   font-size: 25px;
   margin: 0 auto;
 }
 
 .indexBackground .button-start a:hover {
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-}
-
-.btn-start {
-  display: block;
-  width: 100px;
-  height: 40px;
-  font-size: large;
+  color: rgb(248, 246, 246);
+  text-decoration: underline;
 }
 
 #exampleModal .modal-dialog {
@@ -132,7 +152,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .row-main .col-auto h2 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 600;
   font-size: 19px;
   margin: 0 10px 0 34px;
@@ -160,7 +180,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .row-1 .col-auto h2 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   font-size: 19px;
   margin: 0;
@@ -190,7 +210,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .row-2 .col-auto h2 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   font-size: 19px;
   margin: 0;
@@ -220,7 +240,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .row-3 .col-auto h2 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   font-size: 19px;
   margin: 0;
@@ -250,7 +270,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .row-4 .col-auto h2 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   font-size: 19px;
   margin: 0;
@@ -292,7 +312,7 @@
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-left .button-without div a {
   color: white;
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   font-size: 15px;
   text-decoration: none;
@@ -317,20 +337,22 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right h3 {
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-size: 30px;
   font-weight: 600;
-  margin-left: 30px;
+  margin-left: 360px;
   margin-top: 10px;
+  margin-bottom: 110px;
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .input-email {
-  margin-left: 30px;
+  margin-left: 250px;
   margin-top: 30px;
   border-bottom: 2px solid #c6c6c6;
   padding-bottom: 4px;
   width: 330px;
   height: auto;
+  display: flex;
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .input-email .col-auto-left {
@@ -339,7 +361,7 @@
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .input-email .col input {
   border: none;
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   color: #3b3b3b;
   width: 270px;
@@ -350,7 +372,7 @@
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .input-password {
-  margin-left: 30px;
+  margin-left: 250px;
   margin-top: 30px;
   border-bottom: 2px solid #c6c6c6;
   padding-bottom: 4px;
@@ -364,7 +386,7 @@
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .input-password .col input {
   border: none;
-  font-family: 'Montserrat';
+  font-family: 'Calibri';
   font-weight: 500;
   color: #3b3b3b;
   width: 270px;
@@ -386,9 +408,8 @@
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .auth-buttons .button-auth {
   width: 150px;
   height: 50px;
-  border-radius: 44px;
-  background-color: #de3a3a;
-  font-family: 'Montserrat';
+  background-color: blue;
+  font-family: 'Calibri';
   font-size: 22px;
   color: white;
   border: none;
@@ -397,35 +418,37 @@
   text-decoration: none;
 }
 
+#exampleModal .modal-dialog .modal-content .modal-body .row .col-right .button-without
+{
+  margin-left: 292px;
+}
+
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .auth-buttons .button-auth:focus {
   outline: none;
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .auth-buttons .auth-reg {
-  color: #393939;
-  font-family: 'Montserrat';
+  color: white;
   font-weight: 500;
   font-size: 18px;
   text-decoration: none;
-  position: relative;
   -webkit-transition: all 0.6s;
   transition: all 0.6s;
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .auth-buttons .auth-reg:before {
   content: "";
-  width: 0;
   height: 0.1em;
-  position: absolute;
-  bottom: 0;
   left: 50%;
   background: #00aeff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  text-decoration: none;
 }
 
 #exampleModal .modal-dialog .modal-content .modal-body .row .col-right .auth-buttons .auth-reg:hover:before {
   width: 100%;
   left: 0;
-  background: #de3a3a;
+  background: #00aeff;
+  text-decoration: none;
 }
