@@ -30,24 +30,28 @@ class CorrectionalWork(models.Model):
         return self.type
 
 class Admin(models.Model):
-    login = models.CharField(max_length=45)
-    password = models.CharField(max_length=100)
-    create_time = models.DateTimeField()
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
-    rank = models.CharField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+   
+    #login = models.CharField(max_length=45)
+    #password = models.CharField(max_length=100)
+    #create_time = models.DateTimeField()
+    #first_name = models.CharField(max_length=45)
+    #last_name = models.CharField(max_length=45)
+    rank = models.CharField(max_length=45)
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
 
     def __str__(self):
         return self.first_name + self.last_name
 
-class User(models.Model):
-    login = models.CharField(max_length=45)
-    password = models.CharField(max_length=100)
-    create_time = models.DateTimeField()
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
+class Prisoner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    #login = models.CharField(max_length=45)
+    #password = models.CharField(max_length=100)
+    #create_time = models.DateTimeField()
+    #first_name = models.CharField(max_length=45)
+    #last_name = models.CharField(max_length=45)
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
     admin_id = models.ForeignKey(
@@ -62,7 +66,7 @@ class User(models.Model):
     )
     correctional_works = models.ManyToManyField(
         CorrectionalWork,
-        through='UserHasCorrectionalWork'
+        through='PrisonerHasCorrectionalWork'
     )
 
     def __str__(self):
@@ -76,22 +80,22 @@ class Meeting(models.Model):
         Admin,
         on_delete = models.CASCADE
     )
-    user_id = models.ForeignKey(
-        User,
+    prisoner_id = models.ForeignKey(
+        Prisoner,
         on_delete = models.CASCADE
     )
 
     def __str__(self):
         return self.theme
 
-class UserHasCorrectionalWork():
+class PrisonerHasCorrectionalWork(models.Model):
     date = models.DateField()
-    user_id = models.ForeignKey(
-        User,
+    prisoner_id = models.ForeignKey(
+        Prisoner,
         on_delete = models.CASCADE
     )
     correctional_work_id = models.ForeignKey(
-        Record,
+        CorrectionalWork,
         on_delete = models.CASCADE
     )
     admin_id = models.ForeignKey(
@@ -110,6 +114,13 @@ class UserHasCorrectionalWork():
 
 # TODO Delete to hell
 
+class Diagnosis(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    description = models.TextField(null=True, blank=True)
+    text_to_onclusion = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.name
 
 class TemporaryContraindications(models.Model):
     name = models.CharField(max_length=200, null=False)
