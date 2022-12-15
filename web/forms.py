@@ -19,7 +19,6 @@ def choice_to_bool(string: str) -> bool:
 
     return choice_to_bool_dict[string.lower()]
 
-
 class TreatmentForm(forms.Form):
     first_name = forms.CharField(max_length=45, required=False, label='Имя',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
