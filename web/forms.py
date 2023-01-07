@@ -20,9 +20,9 @@ def choice_to_bool(string: str) -> bool:
     return choice_to_bool_dict[string.lower()]
 
 class TreatmentForm(forms.Form):
-    first_name = forms.CharField(max_length=45, required=False, label='Имя',
+    first_name = forms.CharField(max_length=45, required=True, label='Имя',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
-    last_name = forms.CharField(max_length=45, required=False, label='Фамилия',
+    last_name = forms.CharField(max_length=45, required=True, label='Фамилия',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
     birthday = forms.DateField(label='Дата рождения', input_formats=[
     '%Y-%m-%d',  # '2006-10-25'
@@ -39,36 +39,45 @@ class TreatmentForm(forms.Form):
     ], 
     widget=forms.TextInput(attrs={'placeholder': ''}))
 
-    article = forms.CharField(max_length= 45, required=False, label='Действующая статья АК РФ:',
+    article = forms.CharField(max_length= 45, required=True, label='Действующая статья АК РФ:',
                                widget=forms.TextInput(attrs={'placeholder': ''}))
     gender = forms.ChoiceField(
         choices=[(True, 'Муж'), (True, 'Жен')],
         initial=None,
         label='Пол',
-        required=False,
+        required=True,
         widget=forms.RadioSelect,
     )
-    login = forms.CharField(max_length=45, required=False, label='Логин',
+    login = forms.CharField(max_length=45, required=True, label='Логин',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
-    password = forms.CharField(max_length=45, required=False, label='Пароль',
+    password = forms.CharField(max_length=45, required=True, label='Пароль',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
                                     
 
-
-
-
-
-
 # 
-
 class PersonalData(forms.Form):
-     full_name = forms.CharField(max_length=100, required=True, label='ФИО')
-     qualification = forms.CharField(max_length=100, required=False, label='Квалификация')
-     experience = forms.IntegerField(min_value=0, max_value=70, required=False, label='Стаж')
-     work_place = forms.CharField(max_length=100, required=False, label='Место работы')
-     education = forms.CharField(max_length=100, required=False, label='Образование')
-     contacts = forms.CharField(max_length=100, required=False, label='Контакты')
-     image = forms.ImageField(required=False, allow_empty_file=False)
+     admin_first_name = forms.CharField(max_length=45, required=True, label='Имя',
+                                         widget=forms.TextInput(attrs={'placeholder': ''}))
+     admin_last_name = forms.CharField(max_length=45, required=True, label='Фамилия',
+                                         widget=forms.TextInput(attrs={'placeholder': ''}))
+     admin_birthday = forms.DateField(label='Дата рождения', input_formats=[
+        '%Y-%m-%d',  # '2006-10-25'
+    ], 
+     widget=forms.TextInput(attrs={'placeholder': ''}))
+     rank = forms.CharField(max_length=45, required=False, label='Должность/Звание')
+     admin_gender = forms.ChoiceField(
+        choices=[(True, 'Муж'), (True, 'Жен')],
+        initial=None,
+        label='Пол',
+        required=True,
+        widget=forms.RadioSelect,   
+    )
+     admin_login = forms.CharField(max_length=45, required=True, label='Логин',
+                                widget=forms.TextInput(attrs={'placeholder': ''}))
+     admin_password = forms.CharField(max_length=45, required=True, label='Пароль',
+                                widget=forms.TextInput(attrs={'placeholder': ''}))
+     admin_image = forms.ImageField(required=True, allow_empty_file=False)
+    
 
 
 class SignUpForm(UserCreationForm):

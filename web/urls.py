@@ -13,6 +13,7 @@ urlpatterns = [
     path('treatment-form-short', treatment_form_short_view),
     path('signup/', views.sign_up, name='sign_up'),
     path('FAQ/', views.reference_view, name='reference'),
+    path('user_cabinet', views.user_cabinet, name='user_cabinet'),
 
     url(r'^profile/(?P<pk>\d+)$', views.DoctorProfileDetailView.as_view(), name='profile'),
     path('peoples/', views.DoctorsListView.as_view(), name='peoples'),

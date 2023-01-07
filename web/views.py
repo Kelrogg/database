@@ -322,3 +322,6 @@ def reference_view(request):
                   context={
                       'FAQItems': FAQItem.objects.filter(reference=faq)
                   })
+
+def user_cabinet(request):
+    return render(request, 'user_cabinet.html') 

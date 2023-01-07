@@ -1,5 +1,7 @@
-h2, h3, label {
+label, h2, h3
+{
   font-family: "Montserrat";
+  margin-top: 2%;
 }
 
 .container-custom {
@@ -9,9 +11,8 @@ h2, h3, label {
 }
 
 .progress {
-  margin-top: calc(25px * 1);
-  margin-left: 0;
-  width: 100%;
+  margin-top: calc(15px * 1);
+  margin-left: 34%;
   height: calc(85px * 1);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -25,6 +26,9 @@ h2, h3, label {
 
 #upper_form .col-one {
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  margin-left: 37%;
 }
 
 #upper_form .col-one h2 {
@@ -63,10 +67,6 @@ h2, h3, label {
   font-family: "Montserrat";
   font-weight: 700;
   font-size: calc(16px * 1);
-}
-
-#upper_form .next-1 h2 span {
-  color: #ff2828;
 }
 
 #upper_form .next-1 .row {

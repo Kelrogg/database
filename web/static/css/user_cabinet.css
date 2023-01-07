@@ -1,0 +1,75 @@
+body, html
+{
+    width: 100%;
+}
+
+.container
+{
+    min-width: 100%;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.events 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #0a68da;
+    min-width: 100%;
+    margin-top: 3%;
+    height: 150px;
+    gap: 24%;
+}
+
+.row-event
+{
+    display: flex;
+    color: aliceblue;
+    font-weight: 100;
+}
+
+.row-event button
+{
+    font-size: 23px;
+    background:none;
+    border:none;
+    outline: none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color:aliceblue;
+}
+
+.information_container
+{
+    display: flex;
+    background-color: #f6f6f6;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10%;
+    height: 500px;
+}
+
+.info_left
+{
+    background-color: #e2e2e2;
+    display: flex;
+    justify-content: center;
+    width: 26%;
+}
+
+.self_info
+{
+    margin-top: 10%;
+}
+
+.works_popup
+{
+    display: none;
+}
+
+/* .self_info
+{
+    margin-top: 6%;
+} */

@@ -7,24 +7,47 @@
 <div class="form">
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h2 class="title">Персональные данные</h2>
+        <h2 class="title">Регистрация</h2>
 
-        <h2 class="input-title">ФИО<span>*</span></h2>
-        {{ form.full_name }}
+        <h2 class="input-title">Имя<span>*</span></h2>
+        {{ form.admin_first_name }}
+
+        <h2 class="input-title">Фамилия<span>*</span></h2>
+        {{ form.admin_last_name }}
+
+        <h2 class="input-title">Дата рождения<span>*</span></h2>
+        {{ form.admin_birthday }}
+
+        <h2 class="input-title">Должность(Звание)<span>*</span></h2>
+        {{ form.admin_rank }}
 
         <h2 class="input-title">Логин(Email) <span>*</span></h2>
-        {{ form.email }}
+        {{ form.admin_login }}
 
         <h2 class="input-title">Пароль <span>*</span></h2>
-        {{ form.password1 }}
+        {{ form.admin_password }}
 
-        <h2 class="input-title">Подтверждение пароля <span>*</span></h2>
-        {{ form.password2 }}
+        <div class="row">
+            <div class="col-auto">
+                <div class="next-1">
+                    <h2>{{ form.gender.label_tag }}</h2>
+                    {{ form.gender.error }}
+                    <div class="row">
+                        {% for choice in form.gender %}
+                            <div class="col-auto">
+                                {{ choice.tag }}
+                                <label for="id_gender{{ forloop.counter0 }}">{{ choice.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>    
 
 <!--        <h2 class="input-title">Специальность</h2>-->
 <!--         -->
 
-        <h2 class="input-title">Квалификация</h2>
+        <!-- <h2 class="input-title">Квалификация</h2>
         {{ form.qualification }}
 
         <h2 class="input-title">Место работы</h2>
@@ -48,7 +71,7 @@
                 <label id="input-container" for="id_photo">Загрузить фотографию</label>
                 {{ form.photo }}
             </div>
-        </div>
+        </div> -->
 
         <input id="send" type="submit" value="Зарегистрироваться" disabled>
         {% for error in form.errors %}
