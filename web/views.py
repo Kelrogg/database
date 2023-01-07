@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -17,6 +18,15 @@ from .models import Patient, Treatment, Doctor, FAQ, FAQItem, ClassificationType
 
 LOGIN_URL = 'login'
 
+class SignUpUser(generic.edit.CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/sign_up.html'
+    #success_url = reverse_lazy('login')
+
+    #def get_context_data(self, *, object_list=None, **kwargs):
+    #    context = super().get_context_data(**kwargs)
+    #    c_def = self.get_context_data(title="Регистрация")
+    #    return dict(list(context.items()) + list(c_def.items()))
 
 @login_required(login_url=LOGIN_URL)
 def cabinet_view(request):

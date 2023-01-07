@@ -31,12 +31,6 @@ class CorrectionalWork(models.Model):
 
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-   
-    login = models.CharField(max_length=45)
-    password = models.CharField(max_length=100)
-    create_time = models.DateTimeField()
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
     rank = models.CharField(max_length=45)
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
@@ -46,12 +40,7 @@ class Admin(models.Model):
 
 class Prisoner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
-    #login = models.CharField(max_length=45)
-    #password = models.CharField(max_length=100)
-    #create_time = models.DateTimeField()
-    #first_name = models.CharField(max_length=45)
-    #last_name = models.CharField(max_length=45)
+
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
     admin_id = models.ForeignKey(
