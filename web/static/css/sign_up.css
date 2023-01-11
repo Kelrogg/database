@@ -90,9 +90,7 @@ html ::-webkit-scrollbar-thumb {
      object-fit: cover;
 }
 
-.form form .row input {
-  display: none;
-}
+
 
 .form form .row label {
   cursor: pointer;

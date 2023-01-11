@@ -19,7 +19,7 @@ from .models import Patient, Treatment, Doctor, FAQ, FAQItem, ClassificationType
 LOGIN_URL = 'login'
 
 class SignUpUser(generic.edit.CreateView):
-    form_class = UserCreationForm
+    form_class = SignUpForm
     template_name = 'registration/sign_up.html'
     #success_url = reverse_lazy('login')
 

@@ -76,23 +76,39 @@ class PersonalData(forms.Form):
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
      admin_password = forms.CharField(max_length=45, required=True, label='Пароль',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
-     admin_image = forms.ImageField(required=True, allow_empty_file=False)
-    
+     admin_image = forms.ImageField(required=True, allow_empty_file=False) 
 
 
 class SignUpForm(UserCreationForm):
-     full_name = forms.CharField(max_length=100, required=True)
-     email = forms.EmailField(max_length=254, required=True)
-     password1 = forms.CharField(widget=forms.PasswordInput())
-     qualification = forms.CharField(max_length=40, required=False)
-     work_place = forms.CharField(max_length=60, required=False)
-     education = forms.CharField(max_length=30, required=False)
-     experience = forms.IntegerField(min_value=0, required=False)
-     contacts = forms.CharField(max_length=150, required=False)
-     photo = forms.ImageField(required=True)
+    #  full_name = forms.CharField(max_length=100, required=True,label='Имя',
+    #                           widget=forms.TextInput(attrs={'placeholder': ''}))
+    #  email = forms.EmailField(max_length=254, required=True)
+    #  password1 = forms.CharField(widget=forms.PasswordInput())
+    #  qualification = forms.CharField(max_length=40, required=False)
+    #  work_place = forms.CharField(max_length=60, required=False)
+    #  education = forms.CharField(max_length=30, required=False)
+    #  experience = forms.IntegerField(min_value=0, required=False)
+    #  contacts = forms.CharField(max_length=150, required=False)
+    #  photo = forms.ImageField(required=True)
 
-     class Meta:
-         model = User
-         fields = ('full_name', 'email', 'password1', 'qualification', 'work_place',
-                   'education', 'experience', 'contacts', 'photo')
+    #  class Meta:
+    #      model = User
+    #      fields = ('full_name', 'email', 'password1', 'qualification', 'work_place',
+    #                'education', 'experience', 'contacts', 'photo')
+    
+     admin_birthday = forms.DateField(label='Дата рождения', input_formats=[
+        '%Y-%m-%d',  # '2006-10-25'
+    ], 
+     widget=forms.TextInput(attrs={'placeholder': ''}))
+     rank = forms.CharField(max_length=45, required=False, label='Должность/Звание')
+     admin_gender = forms.ChoiceField(
+        choices=[(True, 'Муж'), (True, 'Жен')],
+        initial=None,
+        label='Пол',
+        required=True,
+        widget=forms.RadioSelect,   
+    )
+     admin_login = forms.CharField(max_length=45, required=True, label='Логин',
+                                widget=forms.TextInput(attrs={'placeholder': ''}))
+     admin_image = forms.ImageField(required=True, allow_empty_file=False) 
 
