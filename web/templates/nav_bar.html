@@ -34,34 +34,6 @@
         {% else %}
         <a class="activ" href="{% url 'cabinet' %}">Личный кабинет</a>
         {% endif %}
-
-        {% if request.path == '/peoples/' and user.is_authenticated %}
-        <div class="active">
-            <a class="now" href="{% url 'peoples' %}">Люди</a>
-        </div>
-        {% elif not user.is_authenticated %}
-        <a class="deactive" href="{% url 'login' %}">Люди</a>
-        {% else %}
-        <a class="activ" href="{% url 'peoples' %}">Люди</a>
-        {% endif %}
-
-        {% if request.path == '/treatment-list/' %}
-        <div class="active">
-            <a class="now" href="{% url 'treatment_list' %}">Библиотека снимков</a>
-        </div>
-        {% elif not user.is_authenticated %}
-        <a class="deactive" href="{% url 'login' %}">Библиотека снимков</a>
-        {% else %}
-        <a class="activ" href="{% url 'treatment_list' %}">Библиотека снимков</a>
-        {% endif %}
-
-        {% if request.path == '/FAQ/' %}
-        <div class="active">
-            <a class="now" href="{% url 'reference' %}">Справка</a>
-        </div>
-        {% else %}
-            <a class="activ" href="{% url 'reference' %}">Справка</a>
-        {% endif %}
     </nav>
 </nav>
 {% endblock %}

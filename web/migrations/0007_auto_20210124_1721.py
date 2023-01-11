@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='treatment',
             name='snapshot',
-            field=models.ImageField(blank=True, null=True, upload_to=web.models.rename_file_by_pk),
+            field=models.ImageField(blank=True, null=True, upload_to=''),
         ),
         migrations.CreateModel(
             name='FAQItem',
