@@ -3,7 +3,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 from . import views
 
 urlpatterns = [
@@ -11,7 +10,7 @@ urlpatterns = [
     path('cabinet/', views.cabinet_view, name='cabinet'),
     path('treatment-form', views.treatment_form_view, name='treatment_form'),
     path('signup/', views.SignUpUser.as_view(), name='sign_up'),
-    path('user_cabinet', views.user_cabinet, name='user_cabinet'),
+    path('user_cabinet/', views.user_cabinet, name='user_cabinet'),
 
     # url(r'^profile/(?P<pk>\d+)$', views.DoctorProfileDetailView.as_view(), name='profile'),
     # path('peoples/', views.DoctorsListView.as_view(), name='peoples'),

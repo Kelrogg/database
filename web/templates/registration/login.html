@@ -50,14 +50,15 @@
                 <div class="row">
                     <div class="col col-right">
                         <h3>ВХОД</h3>
-                        <form>
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="row input-email">
                                 <div class="col-auto col-auto-left">
                                     {% load static %}
                                     <img src="{% static 'assets/svg/icon_mail.svg' %}" alt="mail icon">
                                 </div>
                                 <div class="col">
-                                    <input placeholder="Email" id="id_username">
+                                    {{ form.username }}
                                 </div>
                             </div>
 
@@ -67,12 +68,11 @@
                                     <img src="{% static 'assets/svg/icon_password.svg' s%}" alt="password icon">
                                 </div>
                                 <div class="col">
-                                    <input type="password" placeholder="Пароль" id="id_password">
+                                    {{ form.password }}
                                 </div>
                             </div>
                             <div class="auth-buttons">
-                                <button href="#" type="button" class="button-auth" value="Войти" id="login_btn">Войти
-                                </button>
+                                <input type="submit" class="button-auth" value="Войти" id="login_btn"/>
                             </div>
                             <div class="button-without">
                                 <a href="{% url 'treatment_form' %}">Продолжить без регистрации</a>

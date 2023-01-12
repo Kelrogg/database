@@ -104,6 +104,7 @@ ENV/
 .mypy_cache/
 
 .DS_Store
+web/migrations/*
 *.sqlite3
 media/
 documents/

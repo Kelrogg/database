@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
-from django.views import generic
+from django.views import generic, View
 from django.urls import reverse_lazy
 from .models import Admin
 from .models import User
@@ -16,7 +17,7 @@ from .forms import TreatmentForm
 
 from .LabelDecoder import decode_label_detail
 
-from .forms import SignUpForm, PersonalData
+from .forms import SignUpForm, PersonalData, LoginUserForm
 
 
 LOGIN_URL = 'login'
@@ -24,15 +25,24 @@ LOGIN_URL = 'login'
 class SignUpUser(generic.edit.CreateView):
     form_class = SignUpForm
     template_name = 'registration/sign_up.html'
+
     def get_success_url(self):
         return reverse_lazy('login')
+
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = 'registration/login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('user_cabinet')
+
 
 @login_required(login_url=LOGIN_URL)
 def cabinet_view(request):
     if request.method == "POST":
         form = PersonalData(request.POST, request.FILES)
         if form.is_valid():
-            doctor = request.user.doctor
+            doctor = request.user.username
             doctor.full_name = form.cleaned_data['full_name']
             doctor.qualification = form.cleaned_data['qualification']
             doctor.experience = form.cleaned_data['experience']
@@ -43,28 +53,26 @@ def cabinet_view(request):
                 doctor.photo = form.cleaned_data['image']
             doctor.save()
 
-    doctor = request.user.doctor
+    doctor = request.user
     data = {
-        'full_name': doctor.full_name,
-        'qualification': doctor.qualification,
-        'work_place': doctor.work_place,
-        'education': doctor.education,
-        'experience': doctor.experience,
-        'contacts': doctor.contacts,
-        'photo': doctor.photo,
+        'full_name': doctor.username,
+        'qualification': doctor.username,
+        'work_place': doctor.username,
+        'education': doctor.username,
+        'experience': doctor.username,
+        'contacts': doctor.username,
+        'photo': doctor.username,
     }
     form = PersonalData(data)
 
     def get_queryset():
         search_query = request.GET.get('q')
         search_query = search_query if search_query else ''
-        return reversed(Treatment.objects.filter(
-            Q(doctor=doctor) & Q(user__full_name__icontains=search_query)
-        ).all())
+        return reversed({})
 
     return render(request, 'cabinet.html',
                   context={'header': 'Личный кабинет',
-                           'doctor': request.user.doctor,
+                           'doctor': request.user.username,
                            'form': form,
                            'history': get_queryset,
                            })

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -85,3 +85,6 @@ class SignUpForm(UserCreationForm):
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
      admin_image = forms.ImageField(required=True, allow_empty_file=True) 
 
+class LoginUserForm(AuthenticationForm):
+    username = forms.EmailField(label='Почта', widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'почта', 'autocomplete': 'email'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'пароль'}))

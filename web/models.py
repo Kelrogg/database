@@ -40,7 +40,8 @@ class Admin(models.Model):
 
 class Prisoner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+    email = models.EmailField( ('email address'), blank=True, unique=True)
+    
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
     admin_id = models.ForeignKey(

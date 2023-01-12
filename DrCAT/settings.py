@@ -13,6 +13,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -88,7 +93,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Authentication
-#AUTHENTICATION_BACKENDS = ('web.authentication.EmailBackend',)
+AUTHENTICATION_BACKENDS = ('web.authentication.EmailBackend',)
+#AUTHENTICATION_BACKENDS = [
+#    'account.auth_backends.EmailAuthenticationBackend',
+#]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
