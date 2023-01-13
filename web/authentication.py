@@ -12,8 +12,8 @@ class EmailBackend(ModelBackend):
                 return user
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
-        except MultipleObjectsReturned:
-            return User.objects.filter(email=username).order_by('id').first()
+        # except MultipleObjectsReturned:
+            # return User.objects.filter(email=username).order_by('id').first()
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user

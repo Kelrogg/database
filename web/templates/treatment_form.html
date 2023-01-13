@@ -21,44 +21,38 @@
     <div id="upper_form">
         <div class="row col-one">
             <div class="col-auto">
-                <h2 class="first_name">{{ form.first_name.label_tag }}</h2>
-                {{ form.first_name }}
-                {{ form.first_name.error }}
+                <h2 class="last_name">Имя<span>*</span></h2>
+                {{ form.username }}
             </div>
             <div class="col-auto">
-                <h2 class="last_name">{{ form.last_name.label_tag }}</h2>
-                {{ form.last_name }}
-                {{ form.last_name.error }}
+                <h2 class="birth_day">Дата рождения<span>*</span></h2>
+                {{ form.prisoner_birthday }}
             </div>
             <div class="col-auto">
-                <h2 class="birth_day">{{ form.birthday.label_tag }}</h2>
-                {{ form.birthday }}
-                {{ form.birthday.error }}
-            </div>
-            <div class="col-auto">
-                <h2 class="article">{{ form.article.label_tag }}</h2>
+                <h2 class="article">Статья<span>*</span></h2>
                 {{ form.article }}
-                {{ form.article.error }}
             </div>
             <div class="col-auto">
-                <h2 class="login">{{ form.login.label_tag }}</h2>
-                {{ form.login }}
-                {{ form.login.error }}
+                <h2 class="login">Логин<span>*</span></h2>
+                {{ form.prisoner_login }}
             </div>
             <div class="col-auto">
-                <h2 class="password">{{ form.password.label_tag }}</h2>
-                {{ form.password }}
-                {{ form.password.error }}
+                <h2 class="password">Пароль<span>*</span></h2>
+                {{ form.password1 }}
+            </div>
+            <div class="col-auto">
+                <h2 class="password">Подтвердите пароль<span>*</span></h2>
+                {{ form.password2 }}
             </div>
         </div>
 
         <div class="row">
             <div class="col-auto">
                 <div class="next-1">
-                    <h2>{{ form.gender.label_tag }}</h2>
-                    {{ form.gender.error }}
+                    <h2>{{ form.prisoner_gender.label_tag }}</h2>
+                    {{ form.prisoner_gender.error }}
                     <div class="row">
-                        {% for choice in form.gender %}
+                        {% for choice in form.prisoner_gender %}
                             <div class="col-auto">
                                 {{ choice.tag }}
                                 <label for="id_gender{{ forloop.counter0 }}">{{ choice.choice_label }}</label>
@@ -72,65 +66,22 @@
 
     <!--screen 3-->
     <div id="image_block">
-        <label id="select" for="id_snapshot" class="cloud">
-            {% load static %}
-            <img src="{% static 'assets/svg/download-cloud.svg' %}" alt="Cloud img">
-            <h2>Просто перетащите файл сюда</h2>
-            <div class="select">
-                <p>Выбрать файл</p>
+        <div class="row align-items-center">
+            <div class="col-auto">
+                {% load static %}
+                <img id="avatar-img" src="{% static 'assets/svg/avatar-reg.svg' %}" alt="Avatar reg">
             </div>
-        </label>
-
-
-        <div id="file-list">
-            <div class="file row">
-                <div class="col-auto">
-                    {% load static %}
-                    <img src="{% static 'assets/svg/img_ico.svg' %}" alt="Img icon">
-                </div>
-                <div class="col-auto">
-                    <p></p>
-                </div>
-                <div class="col-auto">
-                    {% load static %}
-                    <img id="trash-btn" src="{% static 'assets/svg/trash.svg' %}" alt="Trash icon"
-                         onclick="preventDefaultInput(this)">
-                </div>
+            <div class="col-auto">
+                <label id="input-container" for="id_photo">Загрузить фотографию</label>
+                {{ form.prisoner_image }}
             </div>
-        </div>
-        {{ form.snapshot }}
+        </div> 
 
-        <div class="footer">
-            <div class="col-1">
-                <div onclick="previous_image_block()">
-                    <p>Назад</p>
-                </div>
-            </div>
-            <div class="col-2">
+        <input id="send" type="submit" value="Зарегистрироваться" >
+        {% for error in form.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
 
-                {% if form.errors %}
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-
-            <div id="btnNext3" class="col-2">
-                <label for="submitBtn">
-                    <p>Завершить</p>
-                </label>
-                <input id="submitBtn" type="submit" value="Submit"/>
-            </div>
         </div>
     </div>
 </form>

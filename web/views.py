@@ -13,11 +13,11 @@ from django.views import generic, View
 from django.urls import reverse_lazy
 from .models import Admin
 from .models import User
-from .forms import TreatmentForm
+from .forms import PrisonerSignUpForm
 
 from .LabelDecoder import decode_label_detail
 
-from .forms import SignUpForm, PersonalData, LoginUserForm
+from .forms import SignUpForm, LoginUserForm
 
 
 LOGIN_URL = 'login'
@@ -37,10 +37,32 @@ class LoginUser(LoginView):
         return reverse_lazy('user_cabinet')
 
 
+class SignUpPrisoner(generic.edit.CreateView):
+    form_class = PrisonerSignUpForm
+    template_name = 'registration/treatment_form.html'
+
+    def get_succes_url(self):
+        return reverse_lazy('user_cabinet')
+
+
+def treatment_form_view(request):
+    if request.method == 'POST':
+        form = PrisonerSignUpForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = User()
+            
+            user.username = form.cleaned_data['prisoner_login']
+            user.save()
+    else:
+        form = PrisonerSignUpForm()
+
+    return render(request, 'userf', {'form': form})
+
 @login_required(login_url=LOGIN_URL)
 def cabinet_view(request):
     if request.method == "POST":
-        form = PersonalData(request.POST, request.FILES)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             doctor = request.user.username
             doctor.full_name = form.cleaned_data['full_name']
@@ -63,7 +85,7 @@ def cabinet_view(request):
         'contacts': doctor.username,
         'photo': doctor.username,
     }
-    form = PersonalData(data)
+    form = SignUpForm(data)
 
     def get_queryset():
         search_query = request.GET.get('q')
@@ -76,23 +98,6 @@ def cabinet_view(request):
                            'form': form,
                            'history': get_queryset,
                            })
-
-def treatment_form_view(request):
-    if request.method == 'POST':
-        form = TreatmentForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            user = User()
-            
-            user.full_name = form.cleaned_data['full_name']
-            user.age = form.cleaned_data['age']
-            user.save()
-    else:
-        form = TreatmentForm()
-
-    return render(request, 'treatment_form.html', {'form': form})
-
-
 
 def get_absolute_path_to_project():
     return os.path.dirname(os.path.abspath(__file__)).replace('\\web', '').replace('\\', '/')

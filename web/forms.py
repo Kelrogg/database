@@ -18,55 +18,25 @@ def choice_to_bool(string: str) -> bool:
 
     return choice_to_bool_dict[string.lower()]
 
-class TreatmentForm(forms.Form):
-    first_name = forms.CharField(max_length=45, required=True, label='Имя',
-                                widget=forms.TextInput(attrs={'placeholder': ''}))
-    last_name = forms.CharField(max_length=45, required=True, label='Фамилия',
-                                widget=forms.TextInput(attrs={'placeholder': ''}))
-    birthday = forms.DateField(label='Дата рождения', input_formats=[
+class PrisonerSignUpForm(UserCreationForm):
+    prisoner_birthday = forms.DateField(label='Дата рождения', input_formats=[
     '%Y-%m-%d',  # '2006-10-25'
     ], 
     widget=forms.TextInput(attrs={'placeholder': ''}))
 
     article = forms.CharField(max_length= 45, required=True, label='Действующая статья АК РФ:',
                                widget=forms.TextInput(attrs={'placeholder': ''}))
-    gender = forms.ChoiceField(
+    prisoner_gender = forms.ChoiceField(
         choices=[(True, 'Муж'), (True, 'Жен')],
         initial=None,
         label='Пол',
         required=True,
         widget=forms.RadioSelect,
     )
-    login = forms.CharField(max_length=45, required=True, label='Логин',
+    prisoner_login = forms.CharField(max_length=45, required=True, label='Логин',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
-    password = forms.CharField(max_length=45, required=True, label='Пароль',
-                                widget=forms.TextInput(attrs={'placeholder': ''}))
+    prisoner_image = forms.ImageField(required=True, allow_empty_file=True) 
                                     
-
-# 
-class PersonalData(forms.Form):
-     admin_first_name = forms.CharField(max_length=45, required=True, label='Имя',
-                                         widget=forms.TextInput(attrs={'placeholder': ''}))
-     admin_last_name = forms.CharField(max_length=45, required=True, label='Фамилия',
-                                         widget=forms.TextInput(attrs={'placeholder': ''}))
-     admin_birthday = forms.DateField(label='Дата рождения', input_formats=[
-        '%Y-%m-%d',  # '2006-10-25'
-    ], 
-     widget=forms.TextInput(attrs={'placeholder': ''}))
-     rank = forms.CharField(max_length=45, required=False, label='Должность/Звание')
-     admin_gender = forms.ChoiceField(
-        choices=[(True, 'Муж'), (True, 'Жен')],
-        initial=None,
-        label='Пол',
-        required=True,
-        widget=forms.RadioSelect,   
-    )
-     admin_login = forms.CharField(max_length=45, required=True, label='Логин',
-                                widget=forms.TextInput(attrs={'placeholder': ''}))
-     admin_password = forms.CharField(max_length=45, required=True, label='Пароль',
-                                widget=forms.TextInput(attrs={'placeholder': ''}))
-     admin_image = forms.ImageField(required=True, allow_empty_file=False) 
-
 
 class SignUpForm(UserCreationForm): 
      admin_birthday = forms.DateField(label='Дата рождения', input_formats=[

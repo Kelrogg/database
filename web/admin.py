@@ -1,3 +1,7 @@
+from django.contrib import admin
+
+from .models import *
+
 # from django.contrib import admin
 
 # from .models import *
@@ -55,3 +59,11 @@
 
 # admin.site.site_header = 'Admin-panel'
 # admin.site.index_title = 'Databases'
+
+@admin.register(Admin)
+class Admin(admin.ModelAdmin):
+    pass
+
+@admin.register(Prisoner)
+class Prisoner(admin.ModelAdmin):
+    pass

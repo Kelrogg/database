@@ -13,7 +13,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -62,7 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DrCAT.wsgi.application'
 
-LOGIN_REDIRECT_URL = '/cabinet'
+LOGIN_REDIRECT_URL = '/user-cabinet'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -93,7 +93,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Authentication
-AUTHENTICATION_BACKENDS = ('web.authentication.EmailBackend',)
+# AUTHENTICATION_BACKENDS = ('web.authentication.EmailBackend',)
+
 #AUTHENTICATION_BACKENDS = [
 #    'account.auth_backends.EmailAuthenticationBackend',
 #]
