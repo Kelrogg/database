@@ -99,6 +99,8 @@ AUTH_PASSWORD_VALIDATORS = [
 #    'account.auth_backends.EmailAuthenticationBackend',
 #]
 
+AUTH_USER_MODEL = 'web.User'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

@@ -10,16 +10,19 @@
         <h2 class="title">Регистрация</h2>
 
         <h2 class="input-title">Имя<span>*</span></h2>
-        {{ form.username }}
+        {{ form.first_name }}
+
+        <h2 class="input-title">Фамилия</h2>
+        {{ form.last_name }}
+
+        <h2 class="input-title">Логин(Email) <span>*</span></h2>
+        {{ form.email }}
 
         <h2 class="input-title">Дата рождения<span>*</span></h2>
         {{ form.admin_birthday }}
 
         <h2 class="input-title">Должность(Звание)<span>*</span></h2>
         {{ form.rank }}
-
-        <h2 class="input-title">Логин(Email) <span>*</span></h2>
-        {{ form.admin_login }}
 
         <h2 class="input-title">Пароль <span>*</span></h2>
         {{ form.password1 }}

@@ -2,7 +2,6 @@ import os
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
@@ -11,8 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.urls import reverse_lazy
-from .models import Admin
-from .models import User
+from .models import Admin, User
 from .forms import PrisonerSignUpForm
 
 from .LabelDecoder import decode_label_detail
@@ -23,13 +21,31 @@ from .forms import SignUpForm, LoginUserForm
 LOGIN_URL = 'login'
 
 class SignUpUser(generic.edit.CreateView):
+    model = User
     form_class = SignUpForm
     template_name = 'registration/sign_up.html'
 
     def get_success_url(self):
         return reverse_lazy('login')
 
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'admin'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        admin = Admin.objects.create(user=user)
+        admin.rank = form.fields['rank'] # ['rank'].value()
+        #admin.gender = self.cleaned_data['admin_gender']
+        #admin.birthday = self.cleaned_data['admin_birthday']
+        #admin.user.first_name = self.cleaned_data['first_name']
+        #admin.user.last_name = self.cleaned_data['last_name']
+        #admin.user.email = self.cleaned_data['email']
+        login(self.request, user)
+        return redirect('login')
+
 class LoginUser(LoginView):
+    model = User
     form_class = LoginUserForm
     template_name = 'registration/login.html'
 
@@ -38,11 +54,21 @@ class LoginUser(LoginView):
 
 
 class SignUpPrisoner(generic.edit.CreateView):
+    model = User
     form_class = PrisonerSignUpForm
     template_name = 'registration/treatment_form.html'
 
     def get_succes_url(self):
         return reverse_lazy('user_cabinet')
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'prisoner'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return reverse_lazy('home')
 
 
 def treatment_form_view(request):
