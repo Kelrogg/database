@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.urls import reverse_lazy
+
 from .models import Admin, User
 from .forms import PrisonerSignUpForm
 
@@ -34,13 +35,6 @@ class SignUpUser(generic.edit.CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        admin = Admin.objects.create(user=user)
-        admin.rank = form.fields['rank'] # ['rank'].value()
-        #admin.gender = self.cleaned_data['admin_gender']
-        #admin.birthday = self.cleaned_data['admin_birthday']
-        #admin.user.first_name = self.cleaned_data['first_name']
-        #admin.user.last_name = self.cleaned_data['last_name']
-        #admin.user.email = self.cleaned_data['email']
         login(self.request, user)
         return redirect('login')
 

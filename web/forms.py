@@ -68,9 +68,9 @@ class SignUpForm(UserCreationForm):
     widget=forms.TextInput(attrs={'placeholder': ''}))
     email = forms.EmailField(max_length=45, required=True, label='Почта',
                                 widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Miha@yandex.ru', 'autocomplete': 'email'})),
-    rank = forms.CharField(max_length=45, required=False, label='Должность/Звание')
+    rank = forms.CharField(max_length=45, required=False, label='Должность/Звание', widget=forms.TextInput())
     admin_gender = forms.ChoiceField(
-       choices=[(True, 'Муж'), (True, 'Жен')],
+       choices=[(0, 'Муж'), (1, 'Жен')],
        initial=None,
        label='Пол',
        required=True,
@@ -82,9 +82,21 @@ class SignUpForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.is_admin = True
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
         user.save()
+        admin = Admin.objects.create(user=user,
+            rank = self.cleaned_data.get('rank'),
+            gender = self.cleaned_data.get('admin_gender'),
+            birthday = self.cleaned_data.get('admin_birthday')
+            #user.first_name = self.cleaned_data['first_name']
+            #user.last_name = self.cleaned_data['last_name']
+            #user.email = self.cleaned_data['email']
+        )
+        admin.save()
         return user
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.EmailField(label='Почта', widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'почта', 'autocomplete': 'email'}))
+    username = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'почта', 'autocomplete': 'email'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'пароль'}))
