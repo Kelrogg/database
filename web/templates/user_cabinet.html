@@ -48,6 +48,13 @@
         <div class="info_right">
             <h2 class="self_info"> Личная Информация</h2>
             <!-- <p class="information"> {{form.todo}} </p> -->
+            {% for info in object_list %}
+            <div class="information">
+                <p>Звание: {{ info.rank }}</p>
+                <p>Дата рождения: {{ info.birthday }}</p>
+                <p>Пол: {{ info.gender }}</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>

@@ -142,5 +142,8 @@ def api_login(request):
         else:
             return HttpResponse('Bad request')
 
-def user_cabinet(request):
-    return render(request, 'user_cabinet.html') 
+class info_cabinet(generic.list.ListView):
+     model = Admin
+     template_name = 'user_cabinet.html'
+     def get_queryset(self):
+        return Admin.objects.filter(user=self.request.user)

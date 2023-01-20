@@ -76,7 +76,7 @@ class SignUpForm(UserCreationForm):
        required=True,
        widget=forms.RadioSelect,   
     )
-    admin_image = forms.ImageField(required=True, allow_empty_file=True)
+    # admin_image = forms.ImageField(required=True, allow_empty_file=True)
     
     @transaction.atomic
     def save(self):

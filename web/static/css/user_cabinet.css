@@ -73,3 +73,9 @@ body, html
 {
     margin-top: 6%;
 } */
+
+.information
+{
+    display: flex;
+    flex-direction: column;
+}

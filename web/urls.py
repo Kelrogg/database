@@ -10,7 +10,7 @@ urlpatterns = [
     path('cabinet/', views.cabinet_view, name='cabinet'),
     path('treatment-form', views.treatment_form_view, name='treatment_form'),
     path('signup/', views.SignUpUser.as_view(), name='sign_up'),
-    path('user-cabinet/', views.user_cabinet, name='user_cabinet'),
+    path('user-cabinet/', views.info_cabinet.as_view(), name='user_cabinet'),
 
     # url(r'^profile/(?P<pk>\d+)$', views.DoctorProfileDetailView.as_view(), name='profile'),
     # path('peoples/', views.DoctorsListView.as_view(), name='peoples'),
