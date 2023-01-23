@@ -9,35 +9,6 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 
-<body>
-{% block navbar %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/nav_bar.css' %}">
-<nav class="navbar justify-content-between">
-    <div>
-        <a class="navbar-brand" href="{% url 'cabinet' %}">
-            {% load static %}
-            <img src="{% static 'assets/svg/logo.svg' %}" class="d-inline-block align-top" alt="Logo">
-            Dr.CAT
-        </a>
-        <a id="buttonBegin" href="{% url 'treatment_form'%}" class="begin d-inline-block">
-            <p>Начать диагностику</p>
-        </a>
-    </div>
-    <nav class="d-flex justify-content-between">
-
-
-        {% if request.path == '/cabinet/' %}
-        <div class="active">
-            <a class="now" href="{% url 'cabinet' %}">Личный кабинет</a>
-        </div>
-        {% else %}
-        <a class="activ" href="{% url 'cabinet' %}">Личный кабинет</a>
-        {% endif %}
-    </nav>
-</nav>
-{% endblock %}
-
 <div class="div">
     <!--JQuery-->
     <script
