@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 
 from .models import Admin, User
 from .forms import PrisonerSignUpForm
-
+from .decorators import admin_required
 from .LabelDecoder import decode_label_detail
 
 from .forms import SignUpForm, LoginUserForm
@@ -46,7 +46,7 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('user_cabinet')
 
-
+@admin_required
 class SignUpPrisoner(generic.edit.CreateView):
     model = User
     form_class = PrisonerSignUpForm

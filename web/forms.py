@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Authenti
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
-from .models import User, Admin, Prisoner
+from .models import *
 
 class UserCreationForm(UserCreationForm):
 
@@ -41,7 +41,7 @@ class PrisonerSignUpForm(UserCreationForm):
     article = forms.CharField(max_length= 45, required=True, label='Действующая статья УК РФ:',
                                widget=forms.TextInput(attrs={'placeholder': ''}))
     prisoner_gender = forms.ChoiceField(
-        choices=[(True, 'Муж'), (True, 'Жен')],
+        choices=[(0, 'Муж'), (1, 'Жен')],
         initial=None,
         label='Пол',
         required=True,
@@ -49,6 +49,12 @@ class PrisonerSignUpForm(UserCreationForm):
     )
     prisoner_login = forms.CharField(max_length=45, required=True, label='Логин',
                                 widget=forms.TextInput(attrs={'placeholder': ''}))
+    
+    records = forms.DateField(widget = forms.DateInput())
+    articles = forms.IntegerField(widget = forms.NumberInput())
+    correctional_works_type = forms.CharField(widget = forms.TextInput())
+    correctional_works_address = forms.CharField(widget = forms.TextInput())
+
     prisoner_image = forms.ImageField(required=True, allow_empty_file=True)
     
     @transaction.atomic
@@ -57,6 +63,25 @@ class PrisonerSignUpForm(UserCreationForm):
         user.is_prisoner = True
         if commit:
             user.save()
+        #article = Article.objects.get(
+        #    number = self.cleaned_data.get('article')
+        #)
+        #record = Record.objects.create(
+        #    date = self.cleaned_data.get('records'),
+        #    visited = False
+        #)
+#
+        #correctionalWork = CorrectionalWork.objects.get(
+        #    type = self.cleaned_data.get('correctional_works_type')
+        #)
+#
+        #prisonerWork = PrisonerHasCorrectionalWork.objects.create()
+        
+        prisoner = Prisoner.objects.create(user=user,
+            gender = self.cleaned_data.get('admin_gender'),
+            birthday = self.cleaned_data.get('admin_birthday')
+        )
+        prisoner.save()
         return user
 
 class SignUpForm(UserCreationForm):
@@ -90,9 +115,6 @@ class SignUpForm(UserCreationForm):
             rank = self.cleaned_data.get('rank'),
             gender = self.cleaned_data.get('admin_gender'),
             birthday = self.cleaned_data.get('admin_birthday')
-            #user.first_name = self.cleaned_data['first_name']
-            #user.last_name = self.cleaned_data['last_name']
-            #user.email = self.cleaned_data['email']
         )
         admin.save()
         return user
