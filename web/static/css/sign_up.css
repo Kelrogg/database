@@ -28,13 +28,13 @@ html ::-webkit-scrollbar-thumb {
 }
 
 .form {
-  width: 1320px;
-  -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.16);
-          box-shadow: 0 0 50px rgba(0, 0, 0, 0.16);
+  width: 1000px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.16);
   border-radius: 30px;
   background-color: #ffffff;
   margin-top: 37px;
-  margin-left: 60px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 25px;
 }
 
@@ -43,7 +43,7 @@ html ::-webkit-scrollbar-thumb {
   padding-left: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 465px;
+  max-height: 635px;
 }
 
 .form form .title {
@@ -67,8 +67,7 @@ html ::-webkit-scrollbar-thumb {
 .form form input {
   width: 97%;
   height: 60px;
-  -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
   border-radius: 10px;
   background-color: #ffffff;
   border: none;
@@ -93,18 +92,31 @@ html ::-webkit-scrollbar-thumb {
 
 
 .form form .row label {
+  display: inline;
   cursor: pointer;
-  height: 64px;
-  padding: 0 63px;
-  border-radius: 10px;
-  background-color: #ffffff;
+  height: 50px;
+  padding-right: 20px;
   font-weight: 500;
   font-size: 18px;
   text-align: center;
   padding-top: 17px;
   color: #aaaaaa;
-  -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.16);
-          box-shadow: 0 0 50px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+}
+
+.form form .choice_row input
+{
+  box-shadow: none;
+  max-width: 23%;
+}
+
+.choice_row {
+  display: flex;
+  flex-direction: row-reverse;
+
+  box-shadow: none;
+  width: 110%;
+
 }
 
 .form form input[type="submit"] {
