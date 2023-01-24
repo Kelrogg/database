@@ -92,6 +92,11 @@
   text-decoration: underline;
 }
 
+.last {
+  margin: 0;
+  float: right;
+}
+
 #exampleModal .modal-dialog {
   max-width: 830px;
   margin-top: 100px;

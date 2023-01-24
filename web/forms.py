@@ -33,11 +33,14 @@ def choice_to_bool(string: str) -> bool:
     return choice_to_bool_dict[string.lower()]
 
 class PrisonerSignUpForm(UserCreationForm):
+    first_name = forms.CharField(label='Имя', max_length=104)
+    last_name = forms.CharField(label='Фамилия', max_length=104, required=False)
     prisoner_birthday = forms.DateField(label='Дата рождения', input_formats=[
-    '%Y-%m-%d',  # '2006-10-25'
-    ], 
-    widget=forms.TextInput(attrs={'placeholder': ''}))
+        '%Y-%m-%d',  # '2006-10-25'
+    ], widget=forms.TextInput(attrs={'placeholder': ''}))
 
+    email = forms.EmailField(max_length=45, required=True, label='Почта',
+                                widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Miha@yandex.ru', 'autocomplete': 'email'})),
     article = forms.CharField(max_length= 45, required=True, label='Действующая статья УК РФ:',
                                widget=forms.TextInput(attrs={'placeholder': ''}))
     prisoner_gender = forms.ChoiceField(
@@ -79,7 +82,7 @@ class PrisonerSignUpForm(UserCreationForm):
         
         prisoner = Prisoner.objects.create(user=user,
             gender = self.cleaned_data.get('admin_gender'),
-            birthday = self.cleaned_data.get('admin_birthday')
+            birthday = self.cleaned_data.get('prisoner_birthday')
         )
         prisoner.save()
         return user
@@ -89,8 +92,8 @@ class SignUpForm(UserCreationForm):
     last_name = forms.CharField(label='Фамилия', max_length=104, required=False)
     admin_birthday = forms.DateField(label='Дата рождения', input_formats=[
         '%Y-%m-%d',  # '2006-10-25'
-    ],
-    widget=forms.TextInput(attrs={'placeholder': ''}))
+    ], widget=forms.TextInput(attrs={'placeholder': ''}))
+
     email = forms.EmailField(max_length=45, required=True, label='Почта',
                                 widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Miha@yandex.ru', 'autocomplete': 'email'})),
     rank = forms.CharField(max_length=45, required=False, label='Должность/Звание', widget=forms.TextInput())
@@ -107,6 +110,7 @@ class SignUpForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.is_admin = True
+        user.is_staff = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
         user.email = self.cleaned_data.get('email')

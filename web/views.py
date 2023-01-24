@@ -1,5 +1,5 @@
 import os
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
@@ -46,11 +46,11 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('user_cabinet')
 
-@admin_required
+#@admin_required
 class SignUpPrisoner(generic.edit.CreateView):
     model = User
     form_class = PrisonerSignUpForm
-    template_name = 'registration/treatment_form.html'
+    template_name = 'registration/sign_up_prisoner.html'
 
     def get_succes_url(self):
         return reverse_lazy('user_cabinet')
@@ -62,7 +62,7 @@ class SignUpPrisoner(generic.edit.CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return reverse_lazy('home')
+        return reverse_lazy('user_cabinet')
 
 
 def treatment_form_view(request):
@@ -77,7 +77,7 @@ def treatment_form_view(request):
     else:
         form = PrisonerSignUpForm()
 
-    return render(request, 'userf', {'form': form})
+    return render(request, 'authentication_need.html', {'form': form})
 
 @login_required(login_url=LOGIN_URL)
 def cabinet_view(request):
@@ -141,6 +141,10 @@ def api_login(request):
                 return HttpResponse('inactive user')
         else:
             return HttpResponse('Bad request')
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 class info_cabinet(generic.list.ListView):
      model = Admin

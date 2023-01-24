@@ -8,15 +8,16 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/user_cabinet.css' %}">
-    <title>Uslugi</title>
+    <title>Услуги</title>
 </head>
 <body class="container">
     <div class="header">
-        <a class="header_container" href="http://127.0.0.1:8000/login/">главная</a>
+        <a class="header_container" href="http://127.0.0.1:8000/login/">Главная</a>
         <!-- <div class="avatar">
             {% load static %}
             <img id="avatar-img" src="{% static 'assets/img/upload.png' %}" alt="Persons photo">
         </div> -->
+        <a class="last" href="{% url 'logout' %}">Выйти</a>
     </div>
     <div class="events">
         <div class="row-event">

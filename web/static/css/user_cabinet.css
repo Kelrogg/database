@@ -17,7 +17,6 @@ body, html
     justify-content: center;
     background-color: #0a68da;
     min-width: 100%;
-    margin-top: 3%;
     height: 150px;
     gap: 24%;
 }

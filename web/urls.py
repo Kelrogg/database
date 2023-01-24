@@ -4,13 +4,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from . import views
+from .views import logout_user
 
 urlpatterns = [
     path('', include('django.contrib.auth.urls'), name='home'),
     path('cabinet/', views.cabinet_view, name='cabinet'),
-    path('treatment-form', views.treatment_form_view, name='treatment_form'),
+    path('treatment-form/', views.treatment_form_view, name='treatment_form'),
     path('signup/', views.SignUpUser.as_view(), name='sign_up'),
+    path('signup-prisoner/', views.SignUpPrisoner.as_view(), name='sign_up_prisoner'),
     path('user-cabinet/', views.info_cabinet.as_view(), name='user_cabinet'),
+
+    url(r'^logout/$', logout_user, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
 
     # url(r'^profile/(?P<pk>\d+)$', views.DoctorProfileDetailView.as_view(), name='profile'),
     # path('peoples/', views.DoctorsListView.as_view(), name='peoples'),
