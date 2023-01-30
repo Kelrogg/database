@@ -24,9 +24,7 @@ class Record(models.Model):
         return self.date
 
 class CorrectionalWork(models.Model):
-    type = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-
+    type = models.CharField(max_length=104)
     def __str__(self):
         return self.type
 
@@ -57,7 +55,7 @@ class Prisoner(models.Model):
     
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
-    admin_id = models.ForeignKey(
+    admin = models.ForeignKey(
         Admin,
         on_delete = models.CASCADE
     )
@@ -76,11 +74,11 @@ class Meeting(models.Model):
     meetingcol = models.CharField(max_length=45)
     date = models.DateTimeField()
     theme = models.CharField(max_length=100)
-    admin_id = models.ForeignKey(
+    admin = models.ForeignKey(
         Admin,
         on_delete = models.CASCADE
     )
-    prisoner_id = models.ForeignKey(
+    prisoner = models.ForeignKey(
         Prisoner,
         on_delete = models.CASCADE
     )
@@ -89,7 +87,9 @@ class Meeting(models.Model):
         return self.theme
 
 class PrisonerHasCorrectionalWork(models.Model):
-    date = models.DateField()
+    date = models.DateField(default=datetime.date.today)
+    address = models.CharField(default='', max_length=104)
+
     prisoner_id = models.ForeignKey(
         Prisoner,
         on_delete = models.CASCADE

@@ -36,7 +36,7 @@ class SignUpUser(generic.edit.CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('login')
+        return redirect('user_cabinet')
 
 class LoginUser(LoginView):
     model = User
@@ -51,9 +51,16 @@ class SignUpPrisoner(generic.edit.CreateView):
     model = User
     form_class = PrisonerSignUpForm
     template_name = 'registration/sign_up_prisoner.html'
-
+    
     def get_succes_url(self):
         return reverse_lazy('user_cabinet')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+         'user': self.request.user,
+        })
+        return kwargs
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'prisoner'
@@ -62,7 +69,7 @@ class SignUpPrisoner(generic.edit.CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return reverse_lazy('user_cabinet')
+        return redirect('user_cabinet')
 
 
 def treatment_form_view(request):
