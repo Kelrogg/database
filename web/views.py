@@ -1,4 +1,5 @@
 import os
+from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,8 +11,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin
 
-from .models import Admin, User
+
+from .models import Admin, User, Prisoner
 from .forms import PrisonerSignUpForm
 from .decorators import admin_required
 from .LabelDecoder import decode_label_detail
@@ -38,13 +41,15 @@ class SignUpUser(generic.edit.CreateView):
         login(self.request, user)
         return redirect('user_cabinet')
 
-class LoginUser(LoginView):
-    model = User
-    form_class = LoginUserForm
-    template_name = 'registration/login.html'
+# class LoginUser(LoginView):
+#       model = User
+#       form_class = LoginUserForm
+#       template_name = 'registration/login.html'
+#       def get_success_url(self):
+#          return reverse_lazy('user_cabinet')
 
-    def get_success_url(self):
-        return reverse_lazy('user_cabinet')
+
+
 
 #@admin_required
 class SignUpPrisoner(generic.edit.CreateView):
@@ -153,8 +158,14 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
-class info_cabinet(generic.list.ListView):
+class admin_info_cabinet(generic.list.ListView):
      model = Admin
-     template_name = 'user_cabinet.html'
+     template_name = 'admin_cabinet.html'
      def get_queryset(self):
         return Admin.objects.filter(user=self.request.user)
+
+class prisoner_info_cabinet(generic.list.ListView):
+     model = Prisoner
+     template_name = 'user_cabinet.html'
+     def get_queryset(self):
+        return Prisoner.objects.filter(user=self.request.user)

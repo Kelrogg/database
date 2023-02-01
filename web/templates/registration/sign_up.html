@@ -44,6 +44,16 @@
             </div>
         </div>    
 
+        <!-- <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+             {{ form.admin_image }}
+            <button type="submit">Upload</button>
+          </form>
+          
+          {% if img_obj %}
+            <img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
+          {% endif %} -->
+
         <input id="send" type="submit" value="Зарегистрироваться" >
         {% for error in form.errors %}
           <p style="color: red">{{ error }}</p>

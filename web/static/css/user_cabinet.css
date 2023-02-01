@@ -26,6 +26,7 @@ body, html
     display: flex;
     color: aliceblue;
     font-weight: 100;
+    margin-top: 50px;
 }
 
 .row-event button
@@ -38,6 +39,32 @@ body, html
     padding:0;
     cursor: pointer;
     color:aliceblue;
+}
+.button-start
+{
+    display: flex;
+    font-weight: 100;
+    font-size: 23px;
+    background:none;
+    border:none;
+    outline: none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color:aliceblue;
+}
+
+.row-event button a
+{
+    text-decoration: none;
+    color: aliceblue;
+    font-weight: 400;
+}
+
+.row-event button a:hover
+{
+    text-decoration: none;
+    color: aliceblue;
 }
 
 .information_container
@@ -77,4 +104,12 @@ body, html
 {
     display: flex;
     flex-direction: column;
+}
+
+.modal-dialog
+{
+    background-color: #e2e2e2;
+    min-width: 80%;
+    min-height: 80%;
+    border-radius: 1%;
 }

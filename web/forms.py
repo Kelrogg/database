@@ -115,7 +115,7 @@ class SignUpForm(UserCreationForm):
        required=True,
        widget=forms.RadioSelect,   
     )
-    # admin_image = forms.ImageField(required=True, allow_empty_file=True)
+    #admin_image = forms.ImageField(required=True, allow_empty_file=True)
     
     @transaction.atomic
     def save(self):
@@ -137,3 +137,4 @@ class SignUpForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'почта', 'autocomplete': 'email'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'пароль'}))
+

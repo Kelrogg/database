@@ -62,7 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DrCAT.wsgi.application'
 
-LOGIN_REDIRECT_URL = '/user-cabinet'
+LOGIN_REDIRECT_URL = '/admin-cabinet'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -121,5 +121,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

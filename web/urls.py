@@ -12,10 +12,11 @@ urlpatterns = [
     path('treatment-form/', views.treatment_form_view, name='treatment_form'),
     path('signup/', views.SignUpUser.as_view(), name='sign_up'),
     path('signup-prisoner/', views.SignUpPrisoner.as_view(), name='sign_up_prisoner'),
-    path('user-cabinet/', views.info_cabinet.as_view(), name='user_cabinet'),
+    path('user-cabinet/', views.prisoner_info_cabinet.as_view(), name='user_cabinet'),
+    path('admin-cabinet/', views.admin_info_cabinet.as_view(), name='user_cabinet'),
 
-    url(r'^logout/$', logout_user, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
-
+    url(r'^logout/$', logout_user, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    
     # url(r'^profile/(?P<pk>\d+)$', views.DoctorProfileDetailView.as_view(), name='profile'),
     # path('peoples/', views.DoctorsListView.as_view(), name='peoples'),
     # url(r'^report/(?P<pk>\d+)$', views.TreatmentDetailView.as_view(), name='treatment_report'),
