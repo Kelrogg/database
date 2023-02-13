@@ -46,15 +46,13 @@
         <div class="info_right">
             <h2 class="self_info"> Личная Информация</h2>
             <!-- <p class="information"> {{form.todo}} </p> -->
-            {% for info in object_list %}
             <div class="information">
-                <p> {{ user.get_full_name }} </p>
-                <p>Электронный адрес: {{ user.email }} </p>
-                <p>Звание: {{ info.rank }}</p>
-                <p>Дата рождения: {{ info.birthday }}</p>
-                <p>Пол: {{ info.gender }}</p>
+                <p> {{ user.get_full_name }}</p>
+                <p>Электронный адрес: {{ user.email }}</p>
+                <p>Звание: {{ rank }}</p>
+                <p>Дата рождения: {{ birthday }}</p>
+                <p>Пол: {{ gender }}</p>
             </div>
-            {% endfor %}
         </div>
     </div>
 </body>
@@ -66,11 +64,13 @@
         <div class="row">
             <div class="col col-right">
                 <h3>МОИ ЗЕКИ</h3>
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="row-element">
+                <div class="row-element">
+
+                    <div class="information">
+                        <p>Статья: {{ articles }}</p>
                     </div>
-                </form>
+
+                </div>
             </div>
         </div>
     </div>

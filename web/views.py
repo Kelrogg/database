@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.urls import reverse_lazy
+from django.shortcuts import resolve_url
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -24,7 +25,7 @@ from .forms import SignUpForm, LoginUserForm
 
 LOGIN_URL = 'login'
 
-class SignUpUser(generic.edit.CreateView):
+class SignUpAdmin(generic.edit.CreateView):
     model = User
     form_class = SignUpForm
     template_name = 'registration/sign_up.html'
@@ -39,17 +40,25 @@ class SignUpUser(generic.edit.CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('user_cabinet')
+        return redirect('admin_cabinet')
 
-# class LoginUser(LoginView):
-#       model = User
-#       form_class = LoginUserForm
-#       template_name = 'registration/login.html'
-#       def get_success_url(self):
-#          return reverse_lazy('user_cabinet')
+class LoginUser(LoginView):
+    model = User
+    form_class = LoginUserForm
+    template_name = 'registration/login.html'
 
-
-
+    def get_success_url(self):
+        # url = self.get_redirect_url()
+        # return url or resolve_url('user_cabinet')
+        return reverse_lazy('user_cabinet')
+    
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        user = form.get_user()
+        if user.is_staff:
+             return redirect('admin_cabinet')
+        else:
+             return redirect('user_cabinet')
 
 #@admin_required
 class SignUpPrisoner(generic.edit.CreateView):
@@ -73,7 +82,6 @@ class SignUpPrisoner(generic.edit.CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
         return redirect('user_cabinet')
 
 
@@ -159,13 +167,27 @@ def logout_user(request):
     return redirect('home')
 
 class admin_info_cabinet(generic.list.ListView):
-     model = Admin
-     template_name = 'admin_cabinet.html'
-     def get_queryset(self):
-        return Admin.objects.filter(user=self.request.user)
+    model = Admin
+    template_name = 'admin_cabinet.html'
+    context_object_name = 'context'
+
+    # def get_queryset(self):
+    #     return Prisoner.objects.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        admin = Admin.objects.get(user=self.request.user)
+        # prisoner = Prisoner.objects.get(user=self.request.user)
+        # context['articles'] = prisoner.articles
+        context['rank'] = admin.rank
+        context['gender'] = admin.gender
+        context['birthday'] = admin.birthday
+        return context
+
+
 
 class prisoner_info_cabinet(generic.list.ListView):
-     model = Prisoner
-     template_name = 'user_cabinet.html'
-     def get_queryset(self):
-        return Prisoner.objects.filter(user=self.request.user)
+    model = Prisoner
+    template_name = 'user_cabinet.html'
+    def get_queryset(self):
+       return Prisoner.objects.filter(user=self.request.user)
