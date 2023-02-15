@@ -11,8 +11,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.urls import reverse_lazy
-from django.shortcuts import resolve_url
+from django.shortcuts import resolve_url, get_object_or_404
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
 from .models import Admin, User, Prisoner
@@ -170,20 +171,18 @@ class admin_info_cabinet(generic.list.ListView):
     model = Admin
     template_name = 'admin_cabinet.html'
     context_object_name = 'context'
-
-    # def get_queryset(self):
-    #     return Prisoner.objects.filter(user=self.request.user)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         admin = Admin.objects.get(user=self.request.user)
-        # prisoner = Prisoner.objects.get(user=self.request.user)
-        # context['articles'] = prisoner.articles
         context['rank'] = admin.rank
         context['gender'] = admin.gender
         context['birthday'] = admin.birthday
         return context
-
+    
+    def get_queryset(self):
+        admin = Admin.objects.get(user=self.request.user)
+        return Prisoner.objects.filter(admin=admin)
 
 
 class prisoner_info_cabinet(generic.list.ListView):

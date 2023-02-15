@@ -137,4 +137,5 @@ class SignUpForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'почта', 'autocomplete': 'email'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'пароль'}))
+    
 

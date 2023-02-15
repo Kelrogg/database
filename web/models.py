@@ -69,6 +69,7 @@ class Prisoner(models.Model):
         CorrectionalWork,
         through='PrisonerHasCorrectionalWork'
     )
+    
 
 class Meeting(models.Model):
     meetingcol = models.CharField(max_length=45)

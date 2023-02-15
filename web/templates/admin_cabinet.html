@@ -67,7 +67,12 @@
                 <div class="row-element">
 
                     <div class="information">
-                        <p>Статья: {{ articles }}</p>
+                        {% for author in object_list %}
+                            <p>Пол:{{ author.gender }}</p>
+                            <p>Дата ролждения: {{ author.birthday }}</p>
+                            <li>{{ get_full_name }}</li>
+                        {% endfor %}
+                        <!-- <p>Статья: {{ articles }}</p> -->
                     </div>
 
                 </div>
