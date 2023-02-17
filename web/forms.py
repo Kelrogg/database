@@ -61,7 +61,7 @@ class PrisonerSignUpForm(UserCreationForm):
     correctional_works_type = forms.CharField(widget = forms.TextInput())
     correctional_works_address = forms.CharField(widget = forms.TextInput())
 
-    #prisoner_image = forms.ImageField(required=True, allow_empty_file=True)
+    prisoner_image = forms.ImageField(required=True, widget=forms.FileInput())
     
     def __init__(self, *args, **kwargs):
         self.logged_user = kwargs.pop('user')
@@ -74,6 +74,7 @@ class PrisonerSignUpForm(UserCreationForm):
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
         user.email = self.cleaned_data.get('email')
+        user.image = self.cleaned_data.get('prisoner_image')
         user.save()
         if commit:
             user.save()
@@ -123,7 +124,7 @@ class SignUpForm(UserCreationForm):
        widget=forms.RadioSelect,   
     )
 
-    admin_image = forms.ImageField(required=False, allow_empty_file=True,
+    admin_image = forms.ImageField(required=True,
                                    widget=forms.FileInput())
 
     @transaction.atomic

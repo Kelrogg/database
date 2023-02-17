@@ -45,19 +45,20 @@
         <div class="info_left">
             <div class="self_info">
                 {% load static %}
-                <img id="avatar-img" src="{% static 'assets/img/upload.png' %}" alt="Persons photo">
+                <img id="avatar-img" src="{{ image.url }}" alt="Persons photo">
+
             </div>
         </div>
         <div class="info_right">
             <h2 class="self_info"> Личная Информация</h2>
             <!-- <p class="information"> {{form.todo}} </p> -->
-            {% for info in object_list %}
             <div class="information">
-                <p> {{ user.get_full_name }} </p>
-                <p>Электронный адрес: {{ user.email }} </p>
-                <p>Пол: {{ info.gender }}</p>
+                <p> {{ user.get_full_name }}</p>
+                <p>Электронный адрес: {{ user.email }}</p>
+                <p>Звание: {{ rank }}</p>
+                <p>Дата рождения: {{ birthday }}</p>
+                <p>Пол: {{ gender }}</p>
             </div>
-            {% endfor %}
         </div>
     </div>
 </body>

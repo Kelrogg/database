@@ -5,7 +5,7 @@
 <h1 class="title">Регистрация</h1>
 
 <div class="form">
-    <form method="POST" >
+    <form method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
         <h2 class="title">Регистрация</h2>
 
@@ -60,7 +60,7 @@
             </div>
             <div class="col-auto">
                 <label id="input-container" for="id_photo">Загрузить фотографию</label>
-                {{ form.admin_image }}
+                {{ form.prisoner_image }}
             </div>
         </div>
 

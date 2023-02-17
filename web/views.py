@@ -190,5 +190,13 @@ class admin_info_cabinet(generic.list.ListView):
 class prisoner_info_cabinet(generic.list.ListView):
     model = Prisoner
     template_name = 'user_cabinet.html'
-    def get_queryset(self):
-       return Prisoner.objects.filter(user=self.request.user)
+    # def get_queryset(self):
+    #    return Prisoner.objects.filter(user=self.request.user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user=self.request.user
+        prisoner = Prisoner.objects.get(user=user)
+        context['gender'] = prisoner.gender
+        context['birthday'] = prisoner.birthday
+        context['image'] = user.image
+        return context
