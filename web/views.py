@@ -82,8 +82,8 @@ class SignUpPrisoner(generic.edit.CreateView):
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
-        user = form.save()
-        return redirect('user_cabinet')
+        form.save()
+        return redirect('admin_cabinet')
 
 
 def treatment_form_view(request):
@@ -174,10 +174,12 @@ class admin_info_cabinet(generic.list.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        admin = Admin.objects.get(user=self.request.user)
+        user=self.request.user
+        admin = Admin.objects.get(user=user)
         context['rank'] = admin.rank
         context['gender'] = admin.gender
         context['birthday'] = admin.birthday
+        context['image'] = user.image
         return context
     
     def get_queryset(self):

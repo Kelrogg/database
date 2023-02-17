@@ -40,7 +40,7 @@
         <div class="info_left">
             <div class="self_info">
                 {% load static %}
-                <img id="avatar-img" src="{% static 'assets/img/upload.png' %}" alt="Persons photo">
+                <img id="avatar-img" src="{{ image.url }}" alt="Persons photo">
             </div>
         </div>
         <div class="info_right">
@@ -67,10 +67,10 @@
                 <div class="row-element">
 
                     <div class="information">
-                        {% for author in object_list %}
-                            <p>Пол:{{ author.gender }}</p>
-                            <p>Дата ролждения: {{ author.birthday }}</p>
-                            <li>{{ get_full_name }}</li>
+                        {% for prisoner in object_list %}
+                            <p>Пол:{{ prisoner.gender }}</p>
+                            <p>Дата ролждения: {{ prisoner.birthday }}</p>
+                            <p>Имя: {{ prisoner.user.get_full_name }}</p>
                         {% endfor %}
                         <!-- <p>Статья: {{ articles }}</p> -->
                     </div>

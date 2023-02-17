@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.html import mark_safe
 from django.conf import settings
+
+from DrCAT.settings import MEDIA_ROOT, MEDIA_URL
 from .LabelDecoder import decode_label_detail
 from docx import Document
 from docx.shared import Inches
@@ -34,6 +36,8 @@ class User(AbstractUser):
     is_prisoner = models.BooleanField(default=False)
     email = models.EmailField( ('email address'), unique=True)
 
+    image = models.ImageField(upload_to=MEDIA_ROOT)
+
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -55,6 +59,7 @@ class Prisoner(models.Model):
     
     gender = models.PositiveSmallIntegerField()
     birthday = models.DateField()
+
     admin = models.ForeignKey(
         Admin,
         on_delete = models.CASCADE

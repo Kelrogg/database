@@ -3,6 +3,9 @@ from django.contrib.auth import get_user
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
+from django.core.files import File
+
+from DrCAT.settings import MEDIA_ROOT
 
 from .models import *
 
@@ -68,6 +71,10 @@ class PrisonerSignUpForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_prisoner = True
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
+        user.save()
         if commit:
             user.save()
 
@@ -115,8 +122,10 @@ class SignUpForm(UserCreationForm):
        required=True,
        widget=forms.RadioSelect,   
     )
-    #admin_image = forms.ImageField(required=True, allow_empty_file=True)
-    
+
+    admin_image = forms.ImageField(required=False, allow_empty_file=True,
+                                   widget=forms.FileInput())
+
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -125,6 +134,7 @@ class SignUpForm(UserCreationForm):
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
         user.email = self.cleaned_data.get('email')
+        user.image = self.cleaned_data.get('admin_image')
         user.save()
         admin = Admin.objects.create(user=user,
             rank = self.cleaned_data.get('rank'),
