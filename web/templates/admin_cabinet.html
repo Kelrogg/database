@@ -8,16 +8,16 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/user_cabinet.css' %}">
-    <title>Услуги</title>
+    <title>ГосНадзор</title>
 </head>
 <body class="container">
     <div class="header">
-        <a class="header_container" href="http://127.0.0.1:8000/login/">Главная</a>
-        <!-- <div class="avatar">
+        <a class="header_container" href="http://127.0.0.1:8000/login/">главная</a>
+        <a class="last" href="{% url 'logout' %}">выйти</a>
+        <div class="avatar">
             {% load static %}
-            <img id="avatar-img" src="{% static 'assets/img/upload.png' %}" alt="Persons photo">
-        </div> -->
-        <a class="last" href="{% url 'logout' %}">Выйти</a>
+                <img id="avatar-img" src="{{ image.url }}" alt="Persons photo">
+        </div>
     </div>
     <div class="events">
         <div class="row-event">
@@ -44,16 +44,36 @@
             </div>
         </div>
         <div class="info_right">
-            <h2 class="self_info"> Личная Информация</h2>
-            <!-- <p class="information"> {{form.todo}} </p> -->
+            <h2 class="self_info"> Личная информация</h2>
             <div class="information">
-                <p> {{ user.get_full_name }}</p>
-                <p>Электронный адрес: {{ user.email }}</p>
-                <p>Звание: {{ rank }}</p>
-                <p>Дата рождения: {{ birthday }}</p>
-                <p>Пол: {{ gender }}</p>
+                <div class="data">
+                    <h3>Имя:</h3> 
+                    <p> {{ user.get_full_name }}</p>
+                </div>
+                <div class="data">
+                    <h3>Электронный адрес:</h3> 
+                    <p> {{ user.email }}</p>
+                </div>
+                <div class="data">
+                    <h3>Звание:</h3> 
+                    <p> {{ rank }}</p>
+                </div>
+                <div class="data">
+                    <h3>Дата рождения:</h3> 
+                    <p> {{ birthday }}</p>
+                </div>
+                <div class="data">
+                    <h3>Пол:</h3> 
+                    <p> {{ gender }}</p>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="soon">
+        <h3>Ближайшие события -></h3>
+    </div>
+    <div class="bottom">
+        
     </div>
 </body>
 
@@ -61,23 +81,35 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
+        <h2 class="prison_header">мои зеки</h3>
+        {% for prisoner in object_list %}
         <div class="row">
             <div class="col col-right">
-                <h3>МОИ ЗЕКИ</h3>
                 <div class="row-element">
-
-                    <div class="information">
-                        {% for prisoner in object_list %}
-                            <p>Пол:{{ prisoner.gender }}</p>
-                            <p>Дата ролждения: {{ prisoner.birthday }}</p>
-                            <p>Имя: {{ prisoner.user.get_full_name }}</p>
-                        {% endfor %}
-                        <!-- <p>Статья: {{ articles }}</p> -->
+                    <div class="prisoner_information">
+                        <div class="prisoner_data">
+                            <div class="data">
+                                <h3>Имя:</h3> 
+                                <p> {{ prisoner.user.get_full_name }} </p>
+                            </div>
+                        </div>
+                        <div class="prisoner_data">
+                            <div class="data">
+                                <h3>Дата рождения:</h3> 
+                                <p> {{ prisoner.birthday }} </p>
+                            </div>
+                        </div>
+                        <div class="prisoner_data">
+                            <div class="data">
+                                <h3>Пол:</h3> 
+                                <p> {{ prisoner.gender }} </p>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -91,4 +123,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
 </html>
