@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 from django.core.files import File
 
-from DrCAT.settings import MEDIA_ROOT
+from GosNadzor.settings import MEDIA_ROOT
 
 from .models import *
 

@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'DrCAT.urls'
+ROOT_URLCONF = 'GosNadzor.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DrCAT.wsgi.application'
+WSGI_APPLICATION = 'GosNadzor.wsgi.application'
 
 LOGIN_REDIRECT_URL = '/admin-cabinet'
 

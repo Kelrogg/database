@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.html import mark_safe
 from django.conf import settings
 
-from DrCAT.settings import MEDIA_ROOT, MEDIA_URL
+from GosNadzor.settings import MEDIA_ROOT, MEDIA_URL
 from .LabelDecoder import decode_label_detail
 from docx import Document
 from docx.shared import Inches
