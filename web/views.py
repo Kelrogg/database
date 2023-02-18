@@ -49,8 +49,6 @@ class LoginUser(LoginView):
     template_name = 'registration/login.html'
 
     def get_success_url(self):
-        # url = self.get_redirect_url()
-        # return url or resolve_url('user_cabinet')
         return reverse_lazy('user_cabinet')
     
     def form_valid(self, form):
@@ -85,83 +83,8 @@ class SignUpPrisoner(generic.edit.CreateView):
         form.save()
         return redirect('admin_cabinet')
 
-
-def treatment_form_view(request):
-    if request.method == 'POST':
-        form = PrisonerSignUpForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            user = User()
-            
-            user.username = form.cleaned_data['prisoner_login']
-            user.save()
-    else:
-        form = PrisonerSignUpForm()
-
-    return render(request, 'authentication_need.html', {'form': form})
-
-@login_required(login_url=LOGIN_URL)
-def cabinet_view(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST, request.FILES)
-        if form.is_valid():
-            doctor = request.user.username
-            doctor.full_name = form.cleaned_data['full_name']
-            doctor.qualification = form.cleaned_data['qualification']
-            doctor.experience = form.cleaned_data['experience']
-            doctor.work_place = form.cleaned_data['work_place']
-            doctor.education = form.cleaned_data['education']
-            doctor.contacts = form.cleaned_data['contacts']
-            if form.cleaned_data['image']:
-                doctor.photo = form.cleaned_data['image']
-            doctor.save()
-
-    doctor = request.user
-    data = {
-        'full_name': doctor.username,
-        'qualification': doctor.username,
-        'work_place': doctor.username,
-        'education': doctor.username,
-        'experience': doctor.username,
-        'contacts': doctor.username,
-        'photo': doctor.username,
-    }
-    form = SignUpForm(data)
-
-    def get_queryset():
-        search_query = request.GET.get('q')
-        search_query = search_query if search_query else ''
-        return reversed({})
-
-    return render(request, 'cabinet.html',
-                  context={'header': 'Личный кабинет',
-                           'doctor': request.user.username,
-                           'form': form,
-                           'history': get_queryset,
-                           })
-
 def get_absolute_path_to_project():
     return os.path.dirname(os.path.abspath(__file__)).replace('\\web', '').replace('\\', '/')
-
-def api_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('pwd')
-        stay_logged_in = request.POST.get('stayloggedIn')
-
-        if stay_logged_in != "true":
-            request.session.set_expiry(0)
-
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponse('Success')
-            else:
-                return HttpResponse('inactive user')
-        else:
-            return HttpResponse('Bad request')
 
 def logout_user(request):
     logout(request)
@@ -190,8 +113,6 @@ class admin_info_cabinet(generic.list.ListView):
 class prisoner_info_cabinet(generic.list.ListView):
     model = Prisoner
     template_name = 'user_cabinet.html'
-    # def get_queryset(self):
-    #    return Prisoner.objects.filter(user=self.request.user)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user=self.request.user
@@ -200,3 +121,4 @@ class prisoner_info_cabinet(generic.list.ListView):
         context['birthday'] = prisoner.birthday
         context['image'] = user.image
         return context
+    

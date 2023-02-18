@@ -21,16 +21,19 @@
     </div>
     <div class="events">
         <div class="row-event">
+            <img src="{% static 'assets/img/zek.png' %}" alt="zek">
             <button id="button-start" class="button-start" data-toggle="modal" data-target="#exampleModal">
                 <a class="zk" href="#">мои зеки</a>
             </button>
         </div>
         <div class="row-event">
+            <img src="{% static 'assets/img/Без имени-1.png' %}" alt="lupa">
             <button id="button-start" class="button-start" data-target="#exampleModal">
                 <a class="d" href="#">расширенный поиск</a>
             </button>
         </div>
         <div class="row-event">
+            <img src="{% static 'assets/img/plusik.png' %}" alt="plus">
             <button id="button-start" class="button-start"  data-target="#exampleModal">
                 <a href="{% url 'sign_up_prisoner' %}">новый пользователь</a>
             </button>
@@ -73,7 +76,7 @@
         <h3>Ближайшие события -></h3>
     </div>
     <div class="bottom">
-        
+
     </div>
 </body>
 
@@ -82,34 +85,41 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <h2 class="prison_header">мои зеки</h3>
-        {% for prisoner in object_list %}
-        <div class="row">
-            <div class="col col-right">
-                <div class="row-element">
-                    <div class="prisoner_information">
-                        <div class="prisoner_data">
-                            <div class="data">
-                                <h3>Имя:</h3> 
-                                <p> {{ prisoner.user.get_full_name }} </p>
+        {% if object_list %}
+            {% for prisoner in object_list %}
+            <div class="row">
+                <div class="col col-right">
+                    <div class="row-element">
+                        <div class="prisoner_information">
+                            <div class="prisoner_data">
+                                <div class="data">
+                                    <h3>Имя:</h3> 
+                                    <p> {{ prisoner.user.get_full_name }} </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="prisoner_data">
-                            <div class="data">
-                                <h3>Дата рождения:</h3> 
-                                <p> {{ prisoner.birthday }} </p>
+                            <div class="prisoner_data">
+                                <div class="data">
+                                    <h3>Дата рождения:</h3> 
+                                    <p> {{ prisoner.birthday }} </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="prisoner_data">
-                            <div class="data">
-                                <h3>Пол:</h3> 
-                                <p> {{ prisoner.gender }} </p>
+                            <div class="prisoner_data">
+                                <div class="data">
+                                    <h3>Пол:</h3> 
+                                    <p> {{ prisoner.gender }} </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
+        {% else %}
+        <div class="no_data">
+            <p> К сожалению, тут пусто </p>
+            <img src="{% static 'assets/img/no_data.png' %}" alt="nodata">
+        </div>
+        {% endif %}
     </div>
 </div>
 

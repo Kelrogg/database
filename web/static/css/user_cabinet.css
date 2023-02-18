@@ -63,6 +63,13 @@ body, html
     margin-top: 85px;
 }
 
+.row-event img
+{
+    width: 40px;
+    height: 40px;
+    margin-right: 18px;
+}
+
 .row-event button
 {
     font-size: 23px;
@@ -175,6 +182,31 @@ body, html
     font-size: 22px;
 }
 
+.no_data
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10%;
+
+}
+
+.no_data p
+{
+    font-family: "Montserrat";
+    font-weight: 100;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+}
+
+.no_data img
+{
+    width: 19%;
+    margin-left: 42%;
+    margin-top: 2%;
+}
+
 .soon
 {
     height: 800px;
@@ -226,6 +258,7 @@ body, html
 
 .prison_header  
 {
-    margin-left: 40%;
+    display: flex;
+    justify-content: center;
     padding-top: 10px
 }
