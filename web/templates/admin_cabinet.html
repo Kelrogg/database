@@ -91,22 +91,28 @@
                 <div class="col col-right">
                     <div class="row-element">
                         <div class="prisoner_information">
-                            <div class="prisoner_data">
-                                <div class="data">
-                                    <h3>Имя:</h3> 
-                                    <p> {{ prisoner.user.get_full_name }} </p>
-                                </div>
+                            <div class="prisoner_photo">
+                                {% load static %}
+                                <img id="avatar-img" src="{{ prisoner.user.image.url }}" alt="Persons photo">
                             </div>
-                            <div class="prisoner_data">
-                                <div class="data">
-                                    <h3>Дата рождения:</h3> 
-                                    <p> {{ prisoner.birthday }} </p>
+                            <div class="prisoner_text">
+                                <div class="prisoner_data">
+                                    <div class="data">
+                                        <h3>Имя:</h3> 
+                                        <p> {{ prisoner.user.get_full_name }} </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="prisoner_data">
-                                <div class="data">
-                                    <h3>Пол:</h3> 
-                                    <p> {{ prisoner.gender }} </p>
+                                <div class="prisoner_data">
+                                    <div class="data">
+                                        <h3>Дата рождения:</h3> 
+                                        <p> {{ prisoner.birthday }} </p>
+                                    </div>
+                                </div>
+                                <div class="prisoner_data">
+                                    <div class="data">
+                                        <h3>Пол:</h3> 
+                                        <p> {{ prisoner.gender }} </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

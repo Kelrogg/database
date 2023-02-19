@@ -142,7 +142,7 @@ body, html
 .self_info img
 {
     display: flex;
-    width: 65%;
+    width: 96%;
     height: 96%;
     margin: auto;
 }
@@ -230,7 +230,14 @@ body, html
 .prisoner_information
 {
     display: flex;
+    flex-direction: row;
+}
+
+.prisoner_text
+{
+    display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .row-element
@@ -246,6 +253,17 @@ body, html
 .prisoner_data h3, p
 {
     margin-left: 1%;
+}
+
+.prisoner_photo
+{
+    display: flex;
+}
+
+.prisoner_photo img
+{
+    width: 220px;
+    height: 220px;
 }
 
 .modal-dialog

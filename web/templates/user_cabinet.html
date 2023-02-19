@@ -13,32 +13,30 @@
 <body class="container">
     <div class="header">
         <a class="header_container" href="http://127.0.0.1:8000/login/">Главная</a>
-        <!-- <div class="avatar">
-            {% load static %}
-            <img id="avatar-img" src="{% static 'assets/img/upload.png' %}" alt="Persons photo">
-        </div> -->
         <a class="last" href="{% url 'logout' %}">Выйти</a>
+        <div class="avatar">
+            {% load static %}
+                <img id="avatar-img" src="{{ image.url }}" alt="Persons photo">
+        </div>
     </div>
     <div class="events">
         <div class="row-event">
-            <button class="my_works">мои работы</button>
-            <div class="works_popup">
-                <div class="popup-content">
-                    <h2 class="popup_name">Мои Работы</h2>
-                    <!-- todo {{info.correctional_works}} -->
-                    <span class="close">&times;</span>
-                </div>
-                <div class="popup_body">
-                    <p>text</p>
-                </div>
-            </div>
+            <img src="{% static 'assets/img/works.png' %}" alt="works">
+            <button id="button-start" class="button-start" data-toggle="modal" data-target="#exampleModal">
+                <a class="zk" href="#">мои работы</a>
+            </button>
         </div>
         <div class="row-event">
-            <button class="hours">часы</button>
-            <!-- todo {{info.records}} -->
+            <img src="{% static 'assets/img/clocks.png' %}" alt="clocks">
+            <button id="button-start" class="button-start" data-target="#exampleModal">
+                <a class="d" href="#">часы</a>
+            </button>
         </div>
         <div class="row-event">
-            <button class="my_events">мои события</button>
+            <img src="{% static 'assets/img/events.png' %}" alt="events">
+            <button id="button-start" class="button-start"  data-target="#exampleModal">
+                <a href="#">мои события</a>
+            </button>
         </div>
     </div>
     <div class="information_container">
@@ -53,14 +51,34 @@
             <h2 class="self_info"> Личная Информация</h2>
             <!-- <p class="information"> {{form.todo}} </p> -->
             <div class="information">
-                <p> {{ user.get_full_name }}</p>
-                <p>Электронный адрес: {{ user.email }}</p>
-                <p>Звание: {{ rank }}</p>
-                <p>Дата рождения: {{ birthday }}</p>
-                <p>Пол: {{ gender }}</p>
+                <div class="data">
+                    <h3>Имя:</h3> 
+                    <p> {{ user.get_full_name }}</p>
+                </div>
+                <div class="data">
+                    <h3>Электронный адрес:</h3> 
+                    <p> {{ user.email }}</p>
+                </div>
+                <div class="data">
+                    <h3>Дата рождения:</h3> 
+                    <p> {{ birthday }}</p>
+                </div>
+                <div class="data">
+                    <h3>Пол:</h3> 
+                    <p> {{ gender }}</p>
+                </div>
             </div>
         </div>
     </div>
+    <div class="soon">
+        <h3>Ближайшие события -></h3>
+    </div>
+    <div class="bottom">
+
+    </div>
 </body>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
 
 </html>
