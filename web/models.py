@@ -36,7 +36,7 @@ class User(AbstractUser):
     is_prisoner = models.BooleanField(default=False)
     email = models.EmailField( ('email address'), unique=True)
 
-    image = models.ImageField(upload_to=MEDIA_ROOT)
+    image = models.ImageField(upload_to=MEDIA_URL)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'

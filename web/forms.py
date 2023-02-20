@@ -36,6 +36,14 @@ def choice_to_bool(string: str) -> bool:
 
     return choice_to_bool_dict[string.lower()]
 
+class ArticleChoiceField(forms.ModelMultipleChoiceField):
+    def label_from_instance(self, article):
+        return str(article.number)
+
+class CorrectionalWorkChoiceField(forms.ModelMultipleChoiceField):
+    def label_from_instance(self, article):
+        return str(article.type)
+
 class PrisonerSignUpForm(UserCreationForm):
     first_name = forms.CharField(label='Имя', max_length=104)
     last_name = forms.CharField(label='Фамилия', max_length=104, required=False)
@@ -53,8 +61,16 @@ class PrisonerSignUpForm(UserCreationForm):
         widget=forms.RadioSelect,
     )
     
-    article = forms.IntegerField(widget = forms.NumberInput())
-    correctional_works_type = forms.CharField(widget = forms.TextInput())
+    article = ArticleChoiceField(
+        queryset=Article.objects.all(), #.values('id', 'number'),
+        widget = forms.CheckboxSelectMultiple
+    )
+
+    correctional_works_type = CorrectionalWorkChoiceField(
+        queryset=CorrectionalWork.objects.all(), #.values('id', 'type'),
+        widget=forms.CheckboxSelectMultiple
+    )
+
     correctional_works_address = forms.CharField(widget = forms.TextInput())
 
     prisoner_image = forms.ImageField(required=True, widget=forms.FileInput())
@@ -81,19 +97,24 @@ class PrisonerSignUpForm(UserCreationForm):
             gender = self.cleaned_data.get('prisoner_gender'),
             birthday = self.cleaned_data.get('prisoner_birthday')
         )
-
-        prisoner.articles.add(
-            Article.objects.get(number=self.cleaned_data.get('article'))
-        )
+        
+        for article in self.cleaned_data.get('article'):
+            prisoner.articles.add(article)
 
         # prisoner.records.add(
         #     Record.objects.filter(date=self.cleaned_data.get('records'))
         # )
 
-        prisoner.correctional_works.add(
-            CorrectionalWork.objects.get(type= self.cleaned_data.get('correctional_works_type')), 
-            through_defaults={'admin_id': admin}
-        )
+        for correctional_work in self.cleaned_data.get('correctional_works_type'):
+            prisoner.correctional_works.add(
+                correctional_work,
+                through_defaults={'admin_id': admin}
+            )
+
+        #prisoner.correctional_works.add(
+        #    CorrectionalWork.objects.get(type=self.cleaned_data.get('correctional_works_type')), 
+        #    through_defaults={'admin_id': admin}
+        #)
 
         prisoner.save()
         return user
