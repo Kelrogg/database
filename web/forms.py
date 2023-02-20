@@ -37,10 +37,6 @@ def choice_to_bool(string: str) -> bool:
     return choice_to_bool_dict[string.lower()]
 
 class PrisonerSignUpForm(UserCreationForm):
-    #def __init__(self, *args, **kwargs):
-    #     self.loggedadmin = kwargs.pop('loggedadmin',None)
-    #     super(PrisonerSignUpForm, self).__init__(*args, **kwargs)
-
     first_name = forms.CharField(label='Имя', max_length=104)
     last_name = forms.CharField(label='Фамилия', max_length=104, required=False)
     prisoner_birthday = forms.DateField(label='Дата рождения', input_formats=[
@@ -86,23 +82,19 @@ class PrisonerSignUpForm(UserCreationForm):
             birthday = self.cleaned_data.get('prisoner_birthday')
         )
 
-        #prisoner.articles.add(
-        #    Article.objects.filter(number=self.cleaned_data.get('article'))
-        #)
+        prisoner.articles.add(
+            Article.objects.get(number=self.cleaned_data.get('article'))
+        )
 
-        #admin = Admin.objects.get(user=self.logged_user)
-        #prisoner.admin.add(
-        #    admin
-        #)
-        #prisoner.records.add(
-        #    Record.objects.filter(date=self.cleaned_data.get('records'))
-        #)
+        # prisoner.records.add(
+        #     Record.objects.filter(date=self.cleaned_data.get('records'))
+        # )
 
-        # TODO
-        #correctionalWork = CorrectionalWork.objects.get(
-        #    type = self.cleaned_data.get('correctional_works_type')
-        #)
-        
+        prisoner.correctional_works.add(
+            CorrectionalWork.objects.get(type= self.cleaned_data.get('correctional_works_type')), 
+            through_defaults={'admin_id': admin}
+        )
+
         prisoner.save()
         return user
 

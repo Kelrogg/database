@@ -16,14 +16,14 @@ class Article(models.Model):
     number = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.number
+        return str(self.number)
 
 class Record(models.Model):
     date = models.DateTimeField()
     visited = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.date
+        return str(self.date)
 
 class CorrectionalWork(models.Model):
     type = models.CharField(max_length=104)

@@ -83,6 +83,10 @@ class SignUpPrisoner(generic.edit.CreateView):
         form.save()
         return redirect('admin_cabinet')
 
+# class EditPrisoner(generic.edit.UpdateView):
+#     model = Prisoner
+#     form_class = 
+
 def get_absolute_path_to_project():
     return os.path.dirname(os.path.abspath(__file__)).replace('\\web', '').replace('\\', '/')
 

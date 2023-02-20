@@ -1,0 +1,60 @@
+{% extends 'nav_bar.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+<h1 class="title">Регистрация</h1>
+
+<div class="form">
+    <form method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <h2 class="title">EDIT PRISONER</h2>
+        
+        <h2 class="input-title">Статья </h2>
+        {{ form.article }}
+
+        <h2 class="input-title">Исправительные работы </h2>
+        {{ form.correctional_works_type }}
+
+        <h2 class="input-title">Место исполнения </h2>
+        {{ form.correctional_works_address }}
+
+        <div class="row">
+            <div class="col-auto">
+                <div class="next-1">
+                    <h2>{{ form.prisoner_gender.label_tag }}</h2>
+                    {{ form.prisoner_gender.error }}
+                    <div class="row">
+                        {% for choice in form.prisoner_gender %}
+                            <div class="col-auto">
+                                {{ choice.tag }}
+                                <label for="id_gender{{ forloop.counter0 }}">{{ choice.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <div class="row align-items-center">
+            <div class="col-auto">
+                {% load static %}
+                <img id="avatar-img" src="{% static 'assets/svg/avatar-reg.svg' %}" alt="Avatar reg">
+            </div>
+            <div class="col-auto">
+                <label id="input-container" for="id_photo">Загрузить фотографию</label>
+                {{ form.prisoner_image }}
+            </div>
+        </div>
+
+        <input id="send" type="submit" value="Зарегистрироваться" >
+        {% for error in form.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    </form>
+</div>
+
+{% load static %}
+<script src="{% static 'js/inputReg.js' %} "></script>
+
+{% endblock %}

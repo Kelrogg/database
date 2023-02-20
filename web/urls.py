@@ -11,7 +11,9 @@ urlpatterns = [
     path('signup-prisoner/', views.SignUpPrisoner.as_view(), name='sign_up_prisoner'),
     path('user-cabinet/', views.prisoner_info_cabinet.as_view(), name='user_cabinet'),
     path('admin-cabinet/', views.admin_info_cabinet.as_view(), name='admin_cabinet'),
+    # path('edit-prisoner/', views.EditPrisoner(), name='edit_prisoner'),
     path('', include('django.contrib.auth.urls'), name='home'),
+
 
     url(r'^logout/$', logout_user, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
 ]
