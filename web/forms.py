@@ -111,11 +111,6 @@ class PrisonerSignUpForm(UserCreationForm):
                 through_defaults={'admin_id': admin}
             )
 
-        #prisoner.correctional_works.add(
-        #    CorrectionalWork.objects.get(type=self.cleaned_data.get('correctional_works_type')), 
-        #    through_defaults={'admin_id': admin}
-        #)
-
         prisoner.save()
         return user
 

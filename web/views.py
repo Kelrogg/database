@@ -15,7 +15,6 @@ from django.shortcuts import resolve_url, get_object_or_404
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-
 from .models import Admin, User, Prisoner
 from .forms import PrisonerSignUpForm
 from .decorators import admin_required
@@ -23,6 +22,7 @@ from .LabelDecoder import decode_label_detail
 
 from .forms import SignUpForm, LoginUserForm
 
+from calendarapp.models import Event
 
 LOGIN_URL = 'login'
 
@@ -113,7 +113,6 @@ class admin_info_cabinet(generic.list.ListView):
         admin = Admin.objects.get(user=self.request.user)
         return Prisoner.objects.filter(admin=admin)
 
-
 class prisoner_info_cabinet(generic.list.ListView):
     model = Prisoner
     template_name = 'user_cabinet.html'
@@ -125,4 +124,17 @@ class prisoner_info_cabinet(generic.list.ListView):
         context['birthday'] = prisoner.birthday
         context['image'] = user.image
         return context
-    
+
+class DashboardView(LoginRequiredMixin, View):
+    template_name = "calendarapp/dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        events = Event.objects.get_all_events(user=request.user)
+        running_events = Event.objects.get_running_events(user=request.user)
+        latest_events = Event.objects.filter(user=request.user).order_by("-id")[:10]
+        context = {
+            "total_event": events.count(),
+            "running_events": running_events,
+            "latest_events": latest_events,
+        }
+        return render(request, self.template_name, context)
