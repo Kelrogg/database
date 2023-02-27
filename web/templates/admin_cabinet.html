@@ -23,7 +23,7 @@
         <div class="row-event">
             <img src="{% static 'assets/img/zek.png' %}" alt="zek">
             <button id="button-start" class="button-start" data-toggle="modal" data-target="#exampleModal">
-                <a class="zk" href="#">мои зеки</a>
+                <a class="zk" href="#">мои подопечные</a>
             </button>
         </div>
         <div class="row-event">
@@ -84,7 +84,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <h2 class="prison_header">мои зеки</h3>
+        <h2 class="prison_header">мои подопечные</h3>
         {% if object_list %}
             {% for prisoner in object_list %}
             <div class="row">

@@ -3,7 +3,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
-<h1 class="title">Регистрация</h1>
+<h1 class="title">Новый пользователь</h1>
 
 <div class="form">
     <form method="POST" enctype="multipart/form-data" >
@@ -27,8 +27,8 @@
 
         <h2 class="input-title">Пароль 2<span>*</span></h2>
         {{ form.password2 }}
-
-        <h2 class="input-title">Статья </h2>
+        
+        <h2 class="input-title">Статья</h2>
         {{ form.article }}
 
         <h2 class="input-title">Исправительные работы </h2>
@@ -41,15 +41,12 @@
             <div class="col-auto">
                 <div class="next-1">
                     <h2>{{ form.prisoner_gender.label_tag }}</h2>
-                    {{ form.prisoner_gender.error }}
-                    <div class="row">
-                        {% for choice in form.prisoner_gender %}
-                            <div class="col-auto">
-                                {{ choice.tag }}
-                                <label for="id_gender{{ forloop.counter0 }}">{{ choice.choice_label }}</label>
-                            </div>
-                        {% endfor %}
-                    </div>
+                    {% for choice in form.prisoner_gender %}
+                        <div class="choice_row">
+                            {{ choice.tag }}
+                            <label for="id_gender{{ forloop.counter0 }}">{{ choice.choice_label }}</label>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>    

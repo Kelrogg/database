@@ -77,6 +77,30 @@ html ::-webkit-scrollbar-thumb {
   font-weight: 500;
 }
 
+#id_article
+{
+  list-style-type: none;
+}
+
+#id_article label input {
+  box-shadow: none;
+}
+
+#id_correctional_works_type
+{
+  display: flex;
+  flex-direction: row;
+  gap: 21%;
+  margin-left: 12%;
+  list-style-type: none;
+  margin-top: 3%;
+}
+
+#id_correctional_works_type label input {
+  box-shadow: none;
+  height: 30px;
+}
+
 .form form .row {
   margin-bottom: 18px;
 }
