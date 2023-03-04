@@ -14,7 +14,6 @@ urlpatterns = [
     # path('edit-prisoner/', views.EditPrisoner(), name='edit_prisoner'),
     path('', include('django.contrib.auth.urls')),
     path('', include('calendarapp.urls')),
-    path("calendar", DashboardView.as_view(), name="dashboard"),
 
     url(r'^logout/$', logout_user, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
 ]

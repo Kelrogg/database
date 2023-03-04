@@ -1,5 +1,3 @@
-# cal/views.py
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -10,10 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 
-
 from calendarapp.models import EventMember, Event
 from calendarapp.utils import Calendar
-from calendarapp.forms import EventForm, AddMemberForm
+from calendarapp.forms import MeetingForm, AddMemberForm
+from web.models import Admin, Meeting, Prisoner, Record, CorrectionalWork
 
 
 def get_date(req_day):
@@ -39,8 +37,8 @@ def next_month(d):
 
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
-    login_url = "accounts:signin"
-    model = Event
+    login_url = "home"
+    model = Meeting
     template_name = "calendar.html"
 
     def get_context_data(self, **kwargs):
@@ -54,36 +52,40 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         return context
 
 
-@login_required(login_url="signup")
+@login_required(login_url="home")
 def create_event(request):
-    form = EventForm(request.POST or None)
+    form = MeetingForm(request.POST or None)
     if request.POST and form.is_valid():
-        title = form.cleaned_data["title"]
-        description = form.cleaned_data["description"]
+        meetingcol = form.cleaned_data["meetingcol"]
+        theme = form.cleaned_data["theme"]
         start_time = form.cleaned_data["start_time"]
         end_time = form.cleaned_data["end_time"]
-        Event.objects.get_or_create(
-            user=request.user,
-            title=title,
-            description=description,
+        admin = Admin.objects.get(user=request.user)
+        Meeting.objects.get_or_create(
+            admin=admin,
+            theme=theme,
+            meetingcol=meetingcol,
             start_time=start_time,
             end_time=end_time,
         )
-        return HttpResponseRedirect(reverse("calendarapp:calendar"))
+        return HttpResponseRedirect(reverse("calendarapp:calendars"))
     return render(request, "event.html", {"form": form})
 
 
 class EventEdit(generic.UpdateView):
-    model = Event
-    fields = ["title", "description", "start_time", "end_time"]
+    model = Meeting
+    fields = ["meetingcol", "theme", "start_time", "end_time"]
     template_name = "event.html"
 
+    def get_success_url(self):
+        return reverse("calendarapp:calendars")
 
-@login_required(login_url="signup")
+
+@login_required(login_url="home")
 def event_details(request, event_id):
-    event = Event.objects.get(id=event_id)
-    eventmember = EventMember.objects.filter(event=event)
-    context = {"event": event, "eventmember": eventmember}
+    meeting = Meeting.objects.get(id=event_id)
+    prisoners = Prisoner.objects.filter(meeting=meeting)
+    context = {"meeting": meeting, "prisoners": prisoners}
     return render(request, "event-details.html", context)
 
 
@@ -92,12 +94,13 @@ def add_eventmember(request, event_id):
     if request.method == "POST":
         forms = AddMemberForm(request.POST)
         if forms.is_valid():
-            member = EventMember.objects.filter(event=event_id)
-            event = Event.objects.get(id=event_id)
-            if member.count() <= 9:
+            meeting = Meeting.objects.get(id=event_id)
+            prisoners = Prisoner.objects.filter(meeting=meeting)
+            if prisoners.count() <= 9:
                 user = forms.cleaned_data["user"]
-                EventMember.objects.create(event=event, user=user)
-                return redirect("calendarapp:calendar")
+                prisoner = Prisoner.objects.get(user=user)
+                prisoner.meeting.add(meeting)
+                return redirect("calendarapp:calendars")
             else:
                 print("--------------User limit exceed!-----------------")
     context = {"form": forms}
@@ -107,13 +110,13 @@ def add_eventmember(request, event_id):
 class EventMemberDeleteView(generic.DeleteView):
     model = EventMember
     template_name = "event_delete.html"
-    success_url = reverse_lazy("calendarapp:calendar")
+    success_url = reverse_lazy("calendarapp:calendars")
 
 
 class CalendarViewNew(LoginRequiredMixin, generic.View):
-    #login_url = "accounts:signin"
+    login_url = "login"
     template_name = "calendarapp/calendar.html"
-    form_class = EventForm
+    form_class = MeetingForm
 
     def get(self, request, *args, **kwargs):
         forms = self.form_class()

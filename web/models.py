@@ -45,7 +45,7 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.first_name.join(self.last_name)
+        return self.first_name + self.last_name
 
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -54,6 +54,24 @@ class Admin(models.Model):
     gender = models.PositiveSmallIntegerField(null=True)
     birthday = models.DateField(null=True)
 
+class Meeting(models.Model):
+    meetingcol = models.CharField(max_length=45)
+    theme = models.CharField(max_length=100)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    admin = models.ForeignKey(
+        Admin,
+        on_delete = models.CASCADE
+    )
+
+    def __str__(self):
+        return self.theme
+    
+    @property
+    def get_html_url(self):
+        url = reverse("calendarapp:event-detail", args=(self.id,))
+        return f'<a href="{url}"> {self.theme} </a>'
+    
 class Prisoner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
@@ -74,23 +92,9 @@ class Prisoner(models.Model):
         CorrectionalWork,
         through='PrisonerHasCorrectionalWork'
     )
-    
-
-class Meeting(models.Model):
-    meetingcol = models.CharField(max_length=45)
-    date = models.DateTimeField()
-    theme = models.CharField(max_length=100)
-    admin = models.ForeignKey(
-        Admin,
-        on_delete = models.CASCADE
+    meeting = models.ManyToManyField(
+        Meeting
     )
-    prisoner = models.ForeignKey(
-        Prisoner,
-        on_delete = models.CASCADE
-    )
-
-    def __str__(self):
-        return self.theme
 
 class PrisonerHasCorrectionalWork(models.Model):
     date = models.DateField(default=datetime.date.today)

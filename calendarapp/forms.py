@@ -1,18 +1,19 @@
 from django.forms import ModelForm, DateInput
 from calendarapp.models import Event, EventMember
+from web.models import Meeting, Prisoner
 from django import forms
 
 
-class EventForm(ModelForm):
+class MeetingForm(ModelForm):
     class Meta:
-        model = Event
-        fields = ["title", "description", "start_time", "end_time"]
+        model = Meeting
+        fields = ["meetingcol", "theme", "start_time", "end_time"]
         # datetime-local is a HTML5 input type
         widgets = {
-            "title": forms.TextInput(
+            "meetingcol": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Введите название события"}
             ),
-            "description": forms.Textarea(
+            "theme": forms.TextInput(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Введите описание события",
@@ -30,7 +31,7 @@ class EventForm(ModelForm):
         exclude = ["user"]
 
     def __init__(self, *args, **kwargs):
-        super(EventForm, self).__init__(*args, **kwargs)
+        super(MeetingForm, self).__init__(*args, **kwargs)
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields["start_time"].input_formats = ("%Y-%m-%dT%H:%M",)
         self.fields["end_time"].input_formats = ("%Y-%m-%dT%H:%M",)
@@ -38,5 +39,5 @@ class EventForm(ModelForm):
 
 class AddMemberForm(forms.ModelForm):
     class Meta:
-        model = EventMember
+        model = Prisoner
         fields = ["user"]
