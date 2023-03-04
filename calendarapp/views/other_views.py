@@ -90,11 +90,11 @@ def event_details(request, event_id):
 
 
 def add_eventmember(request, event_id):
+    meeting = Meeting.objects.get(id=event_id)
     forms = AddMemberForm()
     if request.method == "POST":
-        forms = AddMemberForm(request.POST)
+        forms = AddMemberForm(request.POST, instance=meeting)
         if forms.is_valid():
-            meeting = Meeting.objects.get(id=event_id)
             prisoners = Prisoner.objects.filter(meeting=meeting)
             if prisoners.count() <= 9:
                 user = forms.cleaned_data["user"]
@@ -108,7 +108,7 @@ def add_eventmember(request, event_id):
 
 
 class EventMemberDeleteView(generic.DeleteView):
-    model = EventMember
+    model = Prisoner
     template_name = "event_delete.html"
     success_url = reverse_lazy("calendarapp:calendars")
 

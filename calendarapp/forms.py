@@ -1,6 +1,6 @@
 from django.forms import ModelForm, DateInput
 from calendarapp.models import Event, EventMember
-from web.models import Meeting, Prisoner
+from web.models import Meeting, Prisoner, User
 from django import forms
 
 

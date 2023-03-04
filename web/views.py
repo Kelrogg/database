@@ -18,7 +18,6 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from .models import Admin, User, Prisoner
 from .forms import PrisonerSignUpForm
 from .decorators import admin_required
-from .LabelDecoder import decode_label_detail
 
 from .forms import SignUpForm, LoginUserForm
 
