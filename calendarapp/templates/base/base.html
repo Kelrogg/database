@@ -25,6 +25,13 @@
         {% block extracss %}
         {% endblock extracss %}
     </head>
+    <div class="header">
+        
+        <a class="back" href="#">
+            <input type=button value="назад" onClick="javascript:history.go(-1);">
+        </a>
+        <a class="last" href="{% url 'logout' %}">выйти</a>
+    </div>
     <body class="app sidebar-mini">
         <main class="app-content">
             <div class="app-title">
