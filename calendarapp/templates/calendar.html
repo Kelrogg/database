@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block extracss %}
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+{% endblock extracss %}
 {% block content %}
+
 <div class="clearfix">
-    <span class="left m-2" style="font-size: 20px;">Welcome, {{ request.user }}</span>
-    <a class="btn btn-info right" href="{% url 'logout' %}"> Sign Out</a>
-	<a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendars' %}?{{ next_month }} "> Next Month >> </a>
-    <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendars' %}?{{ prev_month }}"> << Previous Month </a>
-    <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_new' %}"> + New Event </a>
+    <span class="left m-2" style="font-size: 20px;">Добро Пожаловать, {{ request.user }}</span>
+    <div class="button_holder">
+        <a class="btn btn-primary" href="{% url 'calendarapp:calendars' %}?{{ prev_month }}"> << Предыдущий Месяц </a>
+        <a class="btn btn-primary" href="{% url 'calendarapp:calendars' %}?{{ next_month }} "> Следующий Месяц >> </a>
+        <a class="btn btn-primary" href="{% url 'calendarapp:event_new' %}"> + Новое Событие </a>
+        <a class="btn btn-primary" href="#"> + Удалить Событие </a>
+        <a class="btn btn-primary" href="#">
+            <input type=button value="Назад" onClick="javascript:history.go(-1);">
+        </a>
+        <a class="btn btn-primary" href="{% url 'logout' %}"> Выход</a>
+    </div>
 </div>
-<div style="color: blueviolet;">
+<div style="color: rgb(88, 88, 248);">
     {{ calendar }}
 </div>
+{% load static %}
+<script src="calendarapp\static\calender\ind.js"></script>
 {% endblock %}
+

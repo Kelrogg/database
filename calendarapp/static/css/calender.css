@@ -45,12 +45,46 @@
     float: right;
   }
 
+  .button_holder
+  {
+    display: flex;
+    gap: 1%;
+    justify-content: end;
+  }
+
   .btn {
     outline: none;
     color: black;
-    background-color: transparent;
+    background-color: #0a68da;
     box-shadow: 0 0 0 0;
+    color: whitesmoke;
   }
+
+  .btn:hover {
+    outline: none;
+    color: black;
+    background-color: #0a68da;
+    box-shadow: 0 0 0 0;
+    color: whitesmoke;
+  }
+
+  .btn input
+{
+  text-decoration: none;
+  border: none;
+  font-size: 16px;
+  background-color: unset;
+  color: whitesmoke;
+}
+
+.btn input:hover
+{
+  text-decoration: none;
+  border: none;
+  font-size: 16px;
+  background-color: unset;
+  color: whitesmoke;
+}
 
   .clearfix {
     margin: 15px;
