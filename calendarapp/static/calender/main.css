@@ -47,8 +47,6 @@
   color: #0a68da;
 }
 
-
-
 .fc-not-allowed,
 .fc-not-allowed .fc-event { /* override events' custom cursors */
   cursor: not-allowed;
