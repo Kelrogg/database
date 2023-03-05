@@ -48,14 +48,21 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
                 admin=Admin.objects.get(user=self.request.user)
             )
         if not self.request.user.is_staff:
-            queryset = Prisoner.objects.get(user=self.request.user).meeting
+            queryset = Prisoner.objects.get(user=self.request.user).meeting.all()
         return queryset
 
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            events = Meeting.objects.filter(
+                admin=Admin.objects.get(user=self.request.user)
+            )
+        if not self.request.user.is_staff:
+            events = Prisoner.objects.get(user=self.request.user).meeting.all()
+
         d = get_date(self.request.GET.get("month", None))
-        cal = Calendar(d.year, d.month)
+        cal = Calendar(events, d.year, d.month)
         html_cal = cal.formatmonth(withyear=True)
         context["calendar"] = mark_safe(html_cal)
         context["prev_month"] = prev_month(d)
