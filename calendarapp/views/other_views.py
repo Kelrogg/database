@@ -40,6 +40,17 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = "home"
     model = Meeting
     template_name = "calendar.html"
+
+    def get_queryset(self):
+        queryset = Meeting.objects.all()
+        if self.request.user.is_staff:
+            queryset = Meeting.objects.filter(
+                admin=Admin.objects.get(user=self.request.user)
+            )
+        if not self.request.user.is_staff:
+            queryset = Prisoner.objects.get(user=self.request.user).meeting
+        return queryset
+
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

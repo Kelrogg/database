@@ -8,8 +8,10 @@ Event Details
     <div class="container">
         <div class="clearfix">
             <a class="btn btn-primary" href="{% url 'calendarapp:calendars' %}"> Календарь </a>
+            {% if user.is_staff %}
             <a class="btn btn-primary" href="{% url 'calendarapp:event_edit' meeting.pk %}"> Изменить Событие </a>
             <a class="btn btn-primary" href="{% url 'calendarapp:remove_meeting' meeting.pk %}"> Удалить событие </a>
+            {% endif %}
         </div>
 
         <div class="clearfix">
@@ -21,7 +23,9 @@ Event Details
         <hr>
         <div class="clearfix">
             <h4 class="left" > Участники События</h4>
+            {% if user.is_staff %}
             <a class="btn btn-primary" href="{% url 'calendarapp:add_eventmember' meeting.id %}"> Добавить Участника </a>
+            {% endif %}
         </div>
         <table class="table table-bordered">
             <thead>
@@ -29,7 +33,9 @@ Event Details
                   <th style="width: 10px">#</th>
                   <th>Имя</th>
                   <th>Email</th>
+                  {% if user.is_staff %}
                   <th>Редактировать</th>
+                  {% endif %}
                 </tr>
               </thead>
               <tbody>
@@ -38,9 +44,11 @@ Event Details
                     <td>{{ forloop.counter }}</td>
                     <td>{{ prisoner.user.first_name }} {{ prisoner.user.last_name }}</td>
                     <td>{{ prisoner.user.email }}</td>
+                    {% if user.is_staff %}
                     <td>
                         <a class="btn btn-primary" href="{% url 'calendarapp:remove_prisoner' prisoner.id %}">Удалить</a>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
               </tbody>
