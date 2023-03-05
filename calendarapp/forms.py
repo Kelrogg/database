@@ -1,6 +1,6 @@
 from django.forms import ModelForm, DateInput
 from calendarapp.models import Event, EventMember
-from web.models import Meeting, Prisoner, User
+from web.models import Meeting, Prisoner, User, Admin
 from django import forms
 
 
@@ -38,6 +38,10 @@ class MeetingForm(ModelForm):
 
 
 class AddMemberForm(forms.ModelForm):
+    def __init__(self, queryset, *args, **kwargs):
+        super(AddMemberForm, self).__init__(*args, **kwargs)
+        self.fields['user'] = forms.ModelChoiceField(queryset=queryset)
+
     class Meta:
         model = Prisoner
-        fields = ["user"]
+        fields = ['user']

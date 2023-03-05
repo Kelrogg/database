@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views.other_views import MeetingDeleteView
 
 app_name = 'calendarapp'
 
@@ -15,9 +16,14 @@ urlpatterns = [
         'add_eventmember/<int:event_id>', views.add_eventmember, name='add_eventmember'
     ),
     path(
-        'event/<int:pk>/remove',
+        'event/<int:pk>/remove_member',
         views.EventMemberDeleteView.as_view(),
-        name='remove_event',
+        name='remove_prisoner',
+    ),
+    path(
+        'event/<int:pk>/remove_event',
+        MeetingDeleteView.as_view(),
+        name='remove_meeting',
     ),
     path('all-event-list/', views.AllEventsListView.as_view(), name='all_events'),
     path(

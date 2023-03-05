@@ -40,7 +40,7 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = "home"
     model = Meeting
     template_name = "calendar.html"
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get("month", None))
@@ -91,27 +91,32 @@ def event_details(request, event_id):
 
 def add_eventmember(request, event_id):
     meeting = Meeting.objects.get(id=event_id)
-    forms = AddMemberForm()
+    admin = Admin.objects.get(user=request.user)
+    my_prisoners = Prisoner.objects.filter(admin=admin)
     if request.method == "POST":
-        forms = AddMemberForm(request.POST, instance=meeting)
+        forms = AddMemberForm(data=request.POST, queryset=my_prisoners, instance=meeting)
         if forms.is_valid():
             prisoners = Prisoner.objects.filter(meeting=meeting)
             if prisoners.count() <= 9:
-                user = forms.cleaned_data["user"]
-                prisoner = Prisoner.objects.get(user=user)
+                prisoner = forms.cleaned_data["user"]
                 prisoner.meeting.add(meeting)
                 return redirect("calendarapp:calendars")
             else:
                 print("--------------User limit exceed!-----------------")
+    forms = AddMemberForm(queryset=my_prisoners)
     context = {"form": forms}
     return render(request, "add_member.html", context)
 
 
 class EventMemberDeleteView(generic.DeleteView):
     model = Prisoner
-    template_name = "event_delete.html"
+    template_name = "prisoner_delete.html"
     success_url = reverse_lazy("calendarapp:calendars")
 
+class MeetingDeleteView(generic.DeleteView):
+    model = Meeting
+    template_name = "event_delete.html"
+    success_url = reverse_lazy("calendarapp:calendars")
 
 class CalendarViewNew(LoginRequiredMixin, generic.View):
     login_url = "login"

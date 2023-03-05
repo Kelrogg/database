@@ -9,6 +9,7 @@ Event Details
         <div class="clearfix">
             <a class="btn btn-primary" href="{% url 'calendarapp:calendars' %}"> Календарь </a>
             <a class="btn btn-primary" href="{% url 'calendarapp:event_edit' meeting.pk %}"> Изменить Событие </a>
+            <a class="btn btn-info right mr-2" href="{% url 'calendarapp:remove_meeting' meeting.pk %}"> Удалить событие </a>
         </div>
 
         <div class="clearfix">
@@ -39,6 +40,7 @@ Event Details
                     <td>{{ prisoner.user.email }}</td>
                     <td>
                         <a class="btn btn-primary" href="{% url 'calendarapp:remove_event' prisoner.id %}">Удалить</a>
+                        <a class="btn btn-danger" href="{% url 'calendarapp:remove_prisoner' prisoner.id %}">Remove</a>
                     </td>
                 </tr>
                 {% endfor %}

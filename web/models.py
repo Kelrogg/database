@@ -53,6 +53,9 @@ class Admin(models.Model):
     gender = models.PositiveSmallIntegerField(null=True)
     birthday = models.DateField(null=True)
 
+    def __str__(self) -> str:
+        return self.user.first_name + ' ' + self.user.last_name
+
 class Meeting(models.Model):
     meetingcol = models.CharField(max_length=45)
     theme = models.CharField(max_length=100)
@@ -94,6 +97,9 @@ class Prisoner(models.Model):
     meeting = models.ManyToManyField(
         Meeting
     )
+    
+    def __str__(self) -> str:
+        return self.user.first_name + ' ' + self.user.last_name
 
 class PrisonerHasCorrectionalWork(models.Model):
     date = models.DateField(default=datetime.date.today)
