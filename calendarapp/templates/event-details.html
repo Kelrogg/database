@@ -39,8 +39,7 @@ Event Details
                     <td>{{ prisoner.user.first_name }} {{ prisoner.user.last_name }}</td>
                     <td>{{ prisoner.user.email }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{% url 'calendarapp:remove_event' prisoner.id %}">Удалить</a>
-                        <a class="btn btn-danger" href="{% url 'calendarapp:remove_prisoner' prisoner.id %}">Remove</a>
+                        <a class="btn btn-primary" href="{% url 'calendarapp:remove_prisoner' prisoner.id %}">Удалить</a>
                     </td>
                 </tr>
                 {% endfor %}
